@@ -8,6 +8,9 @@
 
       <!-- Hero Section with Nature Theme -->
       <section class="relative overflow-hidden bg-gradient-to-br from-nature-50 via-earth-50 to-nature-100 dark:from-nature-900 dark:via-nature-800 dark:to-earth-900 min-h-screen flex items-center">
+        <!-- Spotlight Effect -->
+        <Spotlight class="-top-40 left-0 md:left-60 md:-top-20" fill="#22c55e" />
+
         <div class="container-custom py-32 md:py-40 relative z-10">
           <div class="grid md:grid-cols-2 gap-16 items-center">
             <!-- Left Content -->
@@ -128,7 +131,7 @@
 
           <div ref="featuresGrid" class="grid md:grid-cols-3 gap-8 opacity-0">
             <!-- Feature 1 -->
-            <div class="group p-8 rounded-3xl border-2 border-nature-200 dark:border-nature-700 bg-gradient-to-br from-nature-50 to-white dark:from-nature-900 dark:to-nature-800 hover:shadow-2xl hover:shadow-nature-500/20 transition-all duration-500 hover:-translate-y-2">
+            <Card class="group p-8 border-2 border-nature-200 dark:border-nature-700 bg-gradient-to-br from-nature-50 to-white dark:from-nature-900 dark:to-nature-800 hover:shadow-2xl hover:shadow-nature-500/20 transition-all duration-500 hover:-translate-y-2">
               <div class="h-16 w-16 rounded-2xl bg-gradient-to-br from-nature-500 to-nature-600 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-lg shadow-nature-500/30">
                 <span class="text-3xl">🌱</span>
               </div>
@@ -136,10 +139,10 @@
               <p class="text-nature-600 dark:text-nature-300 leading-relaxed">
                 Découvrez une sélection de produits biologiques et naturels certifiés pour votre bien-être.
               </p>
-            </div>
+            </Card>
 
             <!-- Feature 2 -->
-            <div class="group p-8 rounded-3xl border-2 border-nature-200 dark:border-nature-700 bg-gradient-to-br from-earth-50 to-white dark:from-nature-900 dark:to-nature-800 hover:shadow-2xl hover:shadow-earth-500/20 transition-all duration-500 hover:-translate-y-2">
+            <Card class="group p-8 border-2 border-nature-200 dark:border-nature-700 bg-gradient-to-br from-earth-50 to-white dark:from-nature-900 dark:to-nature-800 hover:shadow-2xl hover:shadow-earth-500/20 transition-all duration-500 hover:-translate-y-2">
               <div class="h-16 w-16 rounded-2xl bg-gradient-to-br from-earth-400 to-earth-500 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-lg shadow-earth-400/30">
                 <span class="text-3xl">♻️</span>
               </div>
@@ -147,10 +150,10 @@
               <p class="text-nature-600 dark:text-nature-300 leading-relaxed">
                 Participez à notre programme de recyclage et réduisez votre empreinte écologique.
               </p>
-            </div>
+            </Card>
 
             <!-- Feature 3 -->
-            <div class="group p-8 rounded-3xl border-2 border-nature-200 dark:border-nature-700 bg-gradient-to-br from-nature-50 to-white dark:from-nature-900 dark:to-nature-800 hover:shadow-2xl hover:shadow-nature-500/20 transition-all duration-500 hover:-translate-y-2">
+            <Card class="group p-8 border-2 border-nature-200 dark:border-nature-700 bg-gradient-to-br from-nature-50 to-white dark:from-nature-900 dark:to-nature-800 hover:shadow-2xl hover:shadow-nature-500/20 transition-all duration-500 hover:-translate-y-2">
               <div class="h-16 w-16 rounded-2xl bg-gradient-to-br from-nature-600 to-nature-700 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-lg shadow-nature-600/30">
                 <span class="text-3xl">🌿</span>
               </div>
@@ -158,9 +161,71 @@
               <p class="text-nature-600 dark:text-nature-300 leading-relaxed">
                 Bénéficiez de recommandations personnalisées basées sur la phytothérapie et l'aromathérapie.
               </p>
-            </div>
+            </Card>
           </div>
         </div>
+      </section>
+
+      <!-- App Showcase Section with ContainerScroll -->
+      <section class="py-20 bg-gradient-to-br from-white to-nature-50 dark:from-nature-950 dark:to-nature-900">
+        <ContainerScroll>
+          <template #title>
+            <h2 class="text-4xl md:text-6xl font-bold bg-gradient-to-r from-nature-700 to-nature-500 bg-clip-text text-transparent mb-4">
+              Interface Intuitive et Naturelle
+            </h2>
+            <p class="text-nature-700/70 dark:text-nature-300/70 text-lg max-w-3xl mx-auto">
+              Découvrez notre plateforme éco-conçue pour une expérience utilisateur fluide et respectueuse
+            </p>
+          </template>
+
+          <!-- App Screenshot/Preview -->
+          <div class="bg-gradient-to-br from-nature-100 to-earth-100 dark:from-nature-800 dark:to-earth-800 w-full h-full rounded-2xl p-8 flex items-center justify-center">
+            <div class="text-center space-y-8">
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <Card class="p-6 bg-white dark:bg-nature-900 hover:scale-105 transition-transform">
+                  <div class="text-4xl mb-3">🌿</div>
+                  <div class="text-sm font-semibold text-nature-700 dark:text-nature-300">Produits Bio</div>
+                </Card>
+                <Card class="p-6 bg-white dark:bg-nature-900 hover:scale-105 transition-transform">
+                  <div class="text-4xl mb-3">🏪</div>
+                  <div class="text-sm font-semibold text-nature-700 dark:text-nature-300">Pharmacies Vertes</div>
+                </Card>
+                <Card class="p-6 bg-white dark:bg-nature-900 hover:scale-105 transition-transform">
+                  <div class="text-4xl mb-3">💬</div>
+                  <div class="text-sm font-semibold text-nature-700 dark:text-nature-300">Chatbot IA</div>
+                </Card>
+                <Card class="p-6 bg-white dark:bg-nature-900 hover:scale-105 transition-transform">
+                  <div class="text-4xl mb-3">♻️</div>
+                  <div class="text-sm font-semibold text-nature-700 dark:text-nature-300">Éco-Responsable</div>
+                </Card>
+              </div>
+              <div class="space-y-4 text-left max-w-2xl mx-auto">
+                <Card class="p-4 bg-white/50 dark:bg-nature-800/50 backdrop-blur-sm">
+                  <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 rounded-full bg-nature-500/20 flex items-center justify-center">
+                      <span class="text-xl">🔍</span>
+                    </div>
+                    <div class="flex-1">
+                      <div class="font-semibold text-nature-800 dark:text-nature-200">Recherche Intelligente</div>
+                      <div class="text-sm text-nature-600 dark:text-nature-400">Trouvez rapidement vos produits naturels</div>
+                    </div>
+                  </div>
+                </Card>
+                <Card class="p-4 bg-white/50 dark:bg-nature-800/50 backdrop-blur-sm">
+                  <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 rounded-full bg-earth-500/20 flex items-center justify-center">
+                      <span class="text-xl">📍</span>
+                    </div>
+                    <div class="flex-1">
+                      <div class="font-semibold text-nature-800 dark:text-nature-200">Géolocalisation</div>
+                      <div class="text-sm text-nature-600 dark:text-nature-400">Pharmacies à proximité en temps réel</div>
+                    </div>
+                  </div>
+                </Card>
+              </div>
+            </div>
+          </div>
+        </ContainerScroll>
       </section>
 
       <!-- Testimonials Section -->
@@ -230,6 +295,9 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Globe from '@/components/ui/Globe.vue'
 import NavigationPill from '@/components/ui/NavigationPill.vue'
 import AnimatedTestimonials from '@/components/ui/AnimatedTestimonials.vue'
+import Spotlight from '@/components/ui/Spotlight.vue'
+import Card from '@/components/ui/Card.vue'
+import ContainerScroll from '@/components/ui/ContainerScroll.vue'
 
 gsap.registerPlugin(ScrollTrigger)
 
