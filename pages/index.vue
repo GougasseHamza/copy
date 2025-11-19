@@ -81,10 +81,13 @@
               </div>
             </div>
 
-            <!-- Right - Globe Component -->
+            <!-- Right - Spline 3D Scene -->
             <div ref="heroGlobe" class="relative h-[600px] opacity-0">
               <div class="absolute inset-0 bg-gradient-to-tr from-nature-400/20 to-transparent rounded-full blur-3xl"></div>
-              <Globe :config="globeConfig" />
+              <SplineScene
+                scene="https://prod.spline.design/6Wq1Q7YGyM-iab9i/scene.splinecode"
+                className="w-full h-full"
+              />
             </div>
           </div>
         </div>
@@ -104,29 +107,31 @@
         </div>
       </section>
 
-      <!-- Features Section with Nature Cards -->
+      <!-- Features Section with Nature Cards and Container Scroll -->
       <section class="py-28 relative overflow-hidden">
         <!-- Background Pattern -->
         <div class="absolute inset-0 opacity-5">
           <div class="absolute inset-0" style="background-image: radial-gradient(circle, hsl(var(--nature-500)) 1px, transparent 1px); background-size: 30px 30px;"></div>
         </div>
 
-        <div class="container-custom relative z-10">
-          <div ref="featuresTitle" class="text-center mb-20 opacity-0">
-            <div class="inline-block mb-4">
-              <span class="text-nature-600 dark:text-nature-400 font-semibold text-sm uppercase tracking-wider">
-                🌍 Engagement Écologique
-              </span>
+        <ContainerScroll>
+          <template #title>
+            <div class="text-center mb-20">
+              <div class="inline-block mb-4">
+                <span class="text-nature-600 dark:text-nature-400 font-semibold text-sm uppercase tracking-wider">
+                  🌍 Engagement Écologique
+                </span>
+              </div>
+              <h2 class="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-nature-700 to-nature-500 bg-clip-text text-transparent">
+                Une Santé Durable
+              </h2>
+              <p class="text-nature-700/70 dark:text-nature-300/70 text-lg max-w-3xl mx-auto leading-relaxed">
+                Rejoignez le mouvement pour une santé respectueuse de l'environnement avec notre plateforme innovante
+              </p>
             </div>
-            <h2 class="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-nature-700 to-nature-500 bg-clip-text text-transparent">
-              Une Santé Durable
-            </h2>
-            <p class="text-nature-700/70 dark:text-nature-300/70 text-lg max-w-3xl mx-auto leading-relaxed">
-              Rejoignez le mouvement pour une santé respectueuse de l'environnement avec notre plateforme innovante
-            </p>
-          </div>
+          </template>
 
-          <div ref="featuresGrid" class="grid md:grid-cols-3 gap-8 opacity-0">
+          <div class="grid md:grid-cols-3 gap-8 p-8">
             <!-- Feature 1 -->
             <div class="group p-8 rounded-3xl border-2 border-nature-200 dark:border-nature-700 bg-gradient-to-br from-nature-50 to-white dark:from-nature-900 dark:to-nature-800 hover:shadow-2xl hover:shadow-nature-500/20 transition-all duration-500 hover:-translate-y-2">
               <div class="h-16 w-16 rounded-2xl bg-gradient-to-br from-nature-500 to-nature-600 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-lg shadow-nature-500/30">
@@ -160,7 +165,7 @@
               </p>
             </div>
           </div>
-        </div>
+        </ContainerScroll>
       </section>
 
       <!-- Testimonials Section -->
@@ -230,6 +235,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Globe from '@/components/ui/Globe.vue'
 import NavigationPill from '@/components/ui/NavigationPill.vue'
 import AnimatedTestimonials from '@/components/ui/AnimatedTestimonials.vue'
+import ContainerScroll from '@/components/ui/ContainerScroll.vue'
+import SplineScene from '@/components/ui/SplineScene.vue'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -242,8 +249,6 @@ const heroGlobe = ref<HTMLElement | null>(null)
 const leaf1 = ref<HTMLElement | null>(null)
 const leaf2 = ref<HTMLElement | null>(null)
 const leaf3 = ref<HTMLElement | null>(null)
-const featuresTitle = ref<HTMLElement | null>(null)
-const featuresGrid = ref<HTMLElement | null>(null)
 const testimonialsSection = ref<HTMLElement | null>(null)
 const ctaSection = ref<HTMLElement | null>(null)
 
@@ -374,29 +379,6 @@ onMounted(() => {
       ease: 'none'
     })
   }
-
-  // Features scroll animation
-  gsap.to(featuresTitle.value, {
-    opacity: 1,
-    y: 0,
-    duration: 0.8,
-    scrollTrigger: {
-      trigger: featuresTitle.value,
-      start: 'top 80%',
-      toggleActions: 'play none none none'
-    }
-  })
-
-  gsap.to(featuresGrid.value, {
-    opacity: 1,
-    y: 0,
-    duration: 0.8,
-    scrollTrigger: {
-      trigger: featuresGrid.value,
-      start: 'top 80%',
-      toggleActions: 'play none none none'
-    }
-  })
 
   // Testimonials scroll animation
   gsap.to(testimonialsSection.value, {

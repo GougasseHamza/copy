@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen bg-background">
-    <!-- Navigation -->
-    <nav class="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <!-- Navigation (hidden on homepage) -->
+    <nav v-if="route.path !== '/'" class="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div class="container-custom flex h-16 items-center justify-between">
         <!-- Logo -->
         <NuxtLink to="/" class="flex items-center space-x-2">
@@ -121,9 +121,9 @@
 
 <script setup lang="ts">
 const mobileMenuOpen = ref(false)
+const route = useRoute()
 
 // Close mobile menu on route change
-const route = useRoute()
 watch(() => route.path, () => {
   mobileMenuOpen.value = false
 })
