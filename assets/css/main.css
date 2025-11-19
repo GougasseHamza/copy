@@ -4,48 +4,70 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 221.2 83.2% 53.3%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 221.2 83.2% 53.3%;
-    --radius: 0.5rem;
+    /* Green Nature Warm Theme - Light Mode */
+    --background: 47 75% 97%;        /* Warm cream/beige background */
+    --foreground: 142 30% 15%;       /* Deep forest green text */
+    --card: 45 100% 99%;             /* Soft warm white for cards */
+    --card-foreground: 142 30% 15%;  /* Deep forest green */
+    --popover: 45 100% 99%;
+    --popover-foreground: 142 30% 15%;
+    --primary: 142 70% 45%;          /* Vibrant nature green */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 35 55% 88%;         /* Warm sandy beige */
+    --secondary-foreground: 142 30% 20%;
+    --muted: 40 40% 92%;             /* Soft warm gray */
+    --muted-foreground: 142 15% 40%;
+    --accent: 85 60% 85%;            /* Light sage green */
+    --accent-foreground: 142 30% 20%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 40 30% 88%;            /* Warm light border */
+    --input: 40 30% 88%;
+    --ring: 142 70% 45%;
+    --radius: 0.75rem;
+
+    /* Nature color palette */
+    --nature-50: 120 60% 97%;
+    --nature-100: 120 50% 92%;
+    --nature-200: 120 45% 85%;
+    --nature-300: 125 45% 70%;
+    --nature-400: 130 50% 55%;
+    --nature-500: 142 70% 45%;
+    --nature-600: 142 70% 38%;
+    --nature-700: 142 65% 30%;
+    --nature-800: 142 55% 22%;
+    --nature-900: 142 45% 15%;
+
+    /* Warm earth tones */
+    --earth-50: 35 80% 95%;
+    --earth-100: 35 70% 88%;
+    --earth-200: 35 65% 78%;
+    --earth-300: 30 60% 68%;
+    --earth-400: 28 55% 58%;
+    --earth-500: 25 50% 48%;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 217.2 91.2% 59.8%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 224.3 76.3% 48%;
+    /* Green Nature Warm Theme - Dark Mode */
+    --background: 142 25% 12%;       /* Deep forest background */
+    --foreground: 47 60% 92%;        /* Warm light text */
+    --card: 142 22% 15%;             /* Slightly lighter forest */
+    --card-foreground: 47 60% 92%;
+    --popover: 142 22% 15%;
+    --popover-foreground: 47 60% 92%;
+    --primary: 142 60% 55%;          /* Bright nature green */
+    --primary-foreground: 142 30% 10%;
+    --secondary: 142 20% 20%;        /* Dark moss green */
+    --secondary-foreground: 47 60% 92%;
+    --muted: 142 15% 22%;
+    --muted-foreground: 40 20% 70%;
+    --accent: 85 40% 35%;            /* Deep sage */
+    --accent-foreground: 47 60% 92%;
+    --destructive: 0 62.8% 45%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 142 20% 25%;
+    --input: 142 20% 25%;
+    --ring: 142 60% 55%;
   }
 }
 

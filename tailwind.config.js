@@ -44,6 +44,26 @@ module.exports = {
         card: {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))'
+        },
+        nature: {
+          50: 'hsl(var(--nature-50))',
+          100: 'hsl(var(--nature-100))',
+          200: 'hsl(var(--nature-200))',
+          300: 'hsl(var(--nature-300))',
+          400: 'hsl(var(--nature-400))',
+          500: 'hsl(var(--nature-500))',
+          600: 'hsl(var(--nature-600))',
+          700: 'hsl(var(--nature-700))',
+          800: 'hsl(var(--nature-800))',
+          900: 'hsl(var(--nature-900))',
+        },
+        earth: {
+          50: 'hsl(var(--earth-50))',
+          100: 'hsl(var(--earth-100))',
+          200: 'hsl(var(--earth-200))',
+          300: 'hsl(var(--earth-300))',
+          400: 'hsl(var(--earth-400))',
+          500: 'hsl(var(--earth-500))',
         }
       },
       borderRadius: {

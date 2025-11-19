@@ -1,191 +1,224 @@
 <template>
   <NuxtLayout name="default">
     <div class="relative">
-      <!-- Hero Section -->
-      <section class="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-indigo-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
-        <div class="container-custom py-24 md:py-32">
-          <div class="grid md:grid-cols-2 gap-12 items-center">
+      <!-- Fixed Navigation Pill -->
+      <div class="fixed top-8 left-1/2 -translate-x-1/2 z-50">
+        <NavigationPill />
+      </div>
+
+      <!-- Hero Section with Nature Theme -->
+      <section class="relative overflow-hidden bg-gradient-to-br from-nature-50 via-earth-50 to-nature-100 dark:from-nature-900 dark:via-nature-800 dark:to-earth-900 min-h-screen flex items-center">
+        <div class="container-custom py-32 md:py-40 relative z-10">
+          <div class="grid md:grid-cols-2 gap-16 items-center">
             <!-- Left Content -->
-            <div ref="heroContent" class="space-y-6 opacity-0">
+            <div ref="heroContent" class="space-y-8 opacity-0">
               <div class="inline-block">
-                <span class="bg-primary/10 text-primary px-4 py-1.5 rounded-full text-sm font-medium">
-                  🏥 Service médical innovant
+                <span class="bg-nature-500/20 text-nature-700 dark:text-nature-300 px-5 py-2 rounded-full text-sm font-semibold border border-nature-500/30">
+                  🌿 Plateforme éco-responsable
                 </span>
               </div>
-              
-              <h1 class="text-5xl md:text-6xl font-bold tracking-tight">
-                Trouvez votre
-                <span class="text-primary block mt-2">Pharmacie</span>
-                en un instant
+
+              <h1 ref="heroTitle" class="text-6xl md:text-7xl font-bold tracking-tight opacity-0">
+                <span class="bg-gradient-to-r from-nature-700 to-nature-500 dark:from-nature-300 dark:to-nature-100 bg-clip-text text-transparent">
+                  Votre Santé,
+                </span>
+                <span class="block mt-3 text-nature-600 dark:text-nature-400">
+                  Notre Nature
+                </span>
               </h1>
-              
-              <p class="text-lg text-muted-foreground max-w-lg">
-                Localisez les pharmacies près de chez vous, consultez la disponibilité des médicaments en temps réel et bénéficiez de conseils personnalisés.
+
+              <p ref="heroDesc" class="text-xl text-nature-700/80 dark:text-nature-200/80 max-w-lg leading-relaxed opacity-0">
+                Découvrez une approche naturelle de la santé. Trouvez les pharmacies engagées dans le développement durable près de chez vous.
               </p>
 
-              <!-- Search Bar -->
-              <div class="flex flex-col sm:flex-row gap-3 max-w-xl">
+              <!-- Search Bar with Nature Theme -->
+              <div ref="heroSearch" class="flex flex-col sm:flex-row gap-4 max-w-xl opacity-0">
                 <div class="relative flex-1">
-                  <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg class="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-nature-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                   </svg>
-                  <input 
-                    type="text" 
-                    placeholder="Rechercher un médicament..."
-                    class="w-full pl-10 pr-4 py-3 rounded-lg border border-input bg-background focus:outline-none focus:ring-2 focus:ring-ring"
+                  <input
+                    type="text"
+                    placeholder="Rechercher un médicament naturel..."
+                    class="w-full pl-12 pr-4 py-4 rounded-2xl border-2 border-nature-200 bg-white/80 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-nature-500 focus:border-transparent transition-all shadow-lg shadow-nature-100"
                   />
                 </div>
-                <NuxtLink to="/pharmacies" class="inline-flex items-center justify-center rounded-lg bg-primary px-6 py-3 text-sm font-medium text-primary-foreground shadow hover:bg-primary/90 transition-colors">
-                  <svg class="mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <NuxtLink to="/pharmacies" class="inline-flex items-center justify-center rounded-2xl bg-gradient-to-r from-nature-600 to-nature-500 px-8 py-4 text-sm font-semibold text-white shadow-lg shadow-nature-500/30 hover:shadow-xl hover:shadow-nature-500/40 hover:scale-105 transition-all duration-300">
+                  <svg class="mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                   </svg>
-                  Trouver
+                  Explorer
                 </NuxtLink>
               </div>
 
-              <!-- Stats -->
-              <div class="flex gap-8 pt-4">
-                <div>
-                  <div class="text-3xl font-bold text-primary">250+</div>
-                  <div class="text-sm text-muted-foreground">Pharmacies</div>
+              <!-- Stats with Nature Icons -->
+              <div ref="heroStats" class="flex gap-10 pt-6 opacity-0">
+                <div class="group">
+                  <div class="text-4xl font-bold bg-gradient-to-br from-nature-700 to-nature-500 bg-clip-text text-transparent group-hover:scale-110 transition-transform">
+                    250+
+                  </div>
+                  <div class="text-sm text-nature-600 dark:text-nature-400 flex items-center gap-1">
+                    🌱 Pharmacies vertes
+                  </div>
                 </div>
-                <div>
-                  <div class="text-3xl font-bold text-primary">5000+</div>
-                  <div class="text-sm text-muted-foreground">Médicaments</div>
+                <div class="group">
+                  <div class="text-4xl font-bold bg-gradient-to-br from-nature-700 to-nature-500 bg-clip-text text-transparent group-hover:scale-110 transition-transform">
+                    5000+
+                  </div>
+                  <div class="text-sm text-nature-600 dark:text-nature-400 flex items-center gap-1">
+                    🍃 Produits naturels
+                  </div>
                 </div>
-                <div>
-                  <div class="text-3xl font-bold text-primary">24/7</div>
-                  <div class="text-sm text-muted-foreground">Service</div>
+                <div class="group">
+                  <div class="text-4xl font-bold bg-gradient-to-br from-nature-700 to-nature-500 bg-clip-text text-transparent group-hover:scale-110 transition-transform">
+                    24/7
+                  </div>
+                  <div class="text-sm text-nature-600 dark:text-nature-400 flex items-center gap-1">
+                    ♻️ Éco-service
+                  </div>
                 </div>
               </div>
             </div>
 
-            <!-- Right Image/Illustration -->
-            <div ref="heroImage" class="relative opacity-0">
-              <div class="relative z-10">
-                <img 
-                  src="https://images.unsplash.com/photo-1576602976047-174e57a47881?w=800&h=600&fit=crop" 
-                  alt="Pharmacie" 
-                  class="rounded-2xl shadow-2xl"
-                />
-              </div>
-              <!-- Floating Cards -->
-              <div ref="floatingCard1" class="absolute -top-6 -right-6 bg-white dark:bg-slate-800 p-4 rounded-xl shadow-lg opacity-0">
-                <div class="flex items-center gap-3">
-                  <div class="h-12 w-12 rounded-full bg-green-100 flex items-center justify-center">
-                    <svg class="h-6 w-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
-                  </div>
-                  <div>
-                    <div class="text-sm font-medium">En stock</div>
-                    <div class="text-xs text-muted-foreground">Disponible maintenant</div>
-                  </div>
-                </div>
-              </div>
-              
-              <div ref="floatingCard2" class="absolute -bottom-6 -left-6 bg-white dark:bg-slate-800 p-4 rounded-xl shadow-lg opacity-0">
-                <div class="flex items-center gap-3">
-                  <div class="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center">
-                    <svg class="h-6 w-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                    </svg>
-                  </div>
-                  <div>
-                    <div class="text-sm font-medium">Ouverte 24h</div>
-                    <div class="text-xs text-muted-foreground">Service continu</div>
-                  </div>
-                </div>
-              </div>
+            <!-- Right - Globe Component -->
+            <div ref="heroGlobe" class="relative h-[600px] opacity-0">
+              <div class="absolute inset-0 bg-gradient-to-tr from-nature-400/20 to-transparent rounded-full blur-3xl"></div>
+              <Globe :config="globeConfig" />
             </div>
           </div>
         </div>
 
-        <!-- Wave Separator -->
+        <!-- Organic Wave Separator -->
         <div class="absolute bottom-0 left-0 right-0">
-          <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full">
             <path d="M0 0L60 10C120 20 240 40 360 46.7C480 53 600 47 720 43.3C840 40 960 40 1080 46.7C1200 53 1320 67 1380 73.3L1440 80V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0V0Z" fill="currentColor" class="text-background"/>
           </svg>
         </div>
+
+        <!-- Floating Leaves Animation -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+          <div ref="leaf1" class="absolute text-6xl opacity-20">🍃</div>
+          <div ref="leaf2" class="absolute text-5xl opacity-15">🌿</div>
+          <div ref="leaf3" class="absolute text-7xl opacity-10">🍂</div>
+        </div>
       </section>
 
-      <!-- Features Section -->
-      <section class="py-20">
-        <div class="container-custom">
-          <div ref="featuresTitle" class="text-center mb-16 opacity-0">
-            <h2 class="text-3xl md:text-4xl font-bold mb-4">Pourquoi choisir PharmFinder ?</h2>
-            <p class="text-muted-foreground max-w-2xl mx-auto">
-              Une plateforme moderne pour simplifier votre accès aux soins pharmaceutiques
+      <!-- Features Section with Nature Cards -->
+      <section class="py-28 relative overflow-hidden">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-5">
+          <div class="absolute inset-0" style="background-image: radial-gradient(circle, hsl(var(--nature-500)) 1px, transparent 1px); background-size: 30px 30px;"></div>
+        </div>
+
+        <div class="container-custom relative z-10">
+          <div ref="featuresTitle" class="text-center mb-20 opacity-0">
+            <div class="inline-block mb-4">
+              <span class="text-nature-600 dark:text-nature-400 font-semibold text-sm uppercase tracking-wider">
+                🌍 Engagement Écologique
+              </span>
+            </div>
+            <h2 class="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-nature-700 to-nature-500 bg-clip-text text-transparent">
+              Une Santé Durable
+            </h2>
+            <p class="text-nature-700/70 dark:text-nature-300/70 text-lg max-w-3xl mx-auto leading-relaxed">
+              Rejoignez le mouvement pour une santé respectueuse de l'environnement avec notre plateforme innovante
             </p>
           </div>
 
           <div ref="featuresGrid" class="grid md:grid-cols-3 gap-8 opacity-0">
             <!-- Feature 1 -->
-            <div class="group p-6 rounded-2xl border bg-card hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-              <div class="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                <svg class="h-6 w-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                </svg>
+            <div class="group p-8 rounded-3xl border-2 border-nature-200 dark:border-nature-700 bg-gradient-to-br from-nature-50 to-white dark:from-nature-900 dark:to-nature-800 hover:shadow-2xl hover:shadow-nature-500/20 transition-all duration-500 hover:-translate-y-2">
+              <div class="h-16 w-16 rounded-2xl bg-gradient-to-br from-nature-500 to-nature-600 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-lg shadow-nature-500/30">
+                <span class="text-3xl">🌱</span>
               </div>
-              <h3 class="text-xl font-semibold mb-2">Localisation précise</h3>
-              <p class="text-muted-foreground">
-                Trouvez instantanément les pharmacies les plus proches avec leur distance et temps d'accès en temps réel.
+              <h3 class="text-2xl font-bold mb-3 text-nature-800 dark:text-nature-200">Bio & Naturel</h3>
+              <p class="text-nature-600 dark:text-nature-300 leading-relaxed">
+                Découvrez une sélection de produits biologiques et naturels certifiés pour votre bien-être.
               </p>
             </div>
 
             <!-- Feature 2 -->
-            <div class="group p-6 rounded-2xl border bg-card hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-              <div class="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                <svg class="h-6 w-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
-                </svg>
+            <div class="group p-8 rounded-3xl border-2 border-nature-200 dark:border-nature-700 bg-gradient-to-br from-earth-50 to-white dark:from-nature-900 dark:to-nature-800 hover:shadow-2xl hover:shadow-earth-500/20 transition-all duration-500 hover:-translate-y-2">
+              <div class="h-16 w-16 rounded-2xl bg-gradient-to-br from-earth-400 to-earth-500 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-lg shadow-earth-400/30">
+                <span class="text-3xl">♻️</span>
               </div>
-              <h3 class="text-xl font-semibold mb-2">Stock en temps réel</h3>
-              <p class="text-muted-foreground">
-                Consultez la disponibilité des médicaments avant de vous déplacer et économisez votre temps.
+              <h3 class="text-2xl font-bold mb-3 text-nature-800 dark:text-nature-200">Zéro Déchet</h3>
+              <p class="text-nature-600 dark:text-nature-300 leading-relaxed">
+                Participez à notre programme de recyclage et réduisez votre empreinte écologique.
               </p>
             </div>
 
             <!-- Feature 3 -->
-            <div class="group p-6 rounded-2xl border bg-card hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-              <div class="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                <svg class="h-6 w-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>
-                </svg>
+            <div class="group p-8 rounded-3xl border-2 border-nature-200 dark:border-nature-700 bg-gradient-to-br from-nature-50 to-white dark:from-nature-900 dark:to-nature-800 hover:shadow-2xl hover:shadow-nature-500/20 transition-all duration-500 hover:-translate-y-2">
+              <div class="h-16 w-16 rounded-2xl bg-gradient-to-br from-nature-600 to-nature-700 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-lg shadow-nature-600/30">
+                <span class="text-3xl">🌿</span>
               </div>
-              <h3 class="text-xl font-semibold mb-2">Assistant IA</h3>
-              <p class="text-muted-foreground">
-                Obtenez des recommandations personnalisées de médicaments basées sur vos symptômes avec notre chatbot intelligent.
+              <h3 class="text-2xl font-bold mb-3 text-nature-800 dark:text-nature-200">Conseils Naturels</h3>
+              <p class="text-nature-600 dark:text-nature-300 leading-relaxed">
+                Bénéficiez de recommandations personnalisées basées sur la phytothérapie et l'aromathérapie.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- CTA Section -->
-      <section class="py-20 bg-primary text-primary-foreground">
+      <!-- Testimonials Section -->
+      <section ref="testimonialsSection" class="py-28 bg-gradient-to-br from-nature-100 to-earth-50 dark:from-nature-900 dark:to-nature-800 opacity-0">
         <div class="container-custom">
-          <div ref="ctaSection" class="text-center max-w-3xl mx-auto opacity-0">
-            <h2 class="text-3xl md:text-4xl font-bold mb-6">
-              Prêt à commencer ?
+          <div class="text-center mb-16">
+            <h2 class="text-5xl font-bold mb-4 bg-gradient-to-r from-nature-700 to-nature-500 bg-clip-text text-transparent">
+              Témoignages Nature
             </h2>
-            <p class="text-lg mb-8 opacity-90">
-              Rejoignez des milliers d'utilisateurs qui font confiance à PharmFinder pour leurs besoins pharmaceutiques.
+            <p class="text-nature-700/70 dark:text-nature-300/70 text-lg">
+              Ce que nos utilisateurs disent de notre engagement écologique
             </p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-              <NuxtLink to="/pharmacies" class="inline-flex items-center justify-center rounded-lg bg-white text-primary px-8 py-3 text-sm font-medium shadow hover:bg-white/90 transition-colors">
-                Explorer les pharmacies
-                <svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </div>
+          <AnimatedTestimonials :testimonials="testimonials" :autoplay="true" />
+        </div>
+      </section>
+
+      <!-- CTA Section with Nature Theme -->
+      <section class="py-32 relative overflow-hidden">
+        <!-- Gradient Background -->
+        <div class="absolute inset-0 bg-gradient-to-br from-nature-600 via-nature-500 to-earth-500"></div>
+
+        <!-- Overlay Pattern -->
+        <div class="absolute inset-0 opacity-10">
+          <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,%3Csvg width=&quot;60&quot; height=&quot;60&quot; viewBox=&quot;0 0 60 60&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;%3E%3Cg fill=&quot;none&quot; fill-rule=&quot;evenodd&quot;%3E%3Cg fill=&quot;%23ffffff&quot; fill-opacity=&quot;0.4&quot;%3E%3Cpath d=&quot;M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z&quot;/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+        </div>
+
+        <div class="container-custom relative z-10">
+          <div ref="ctaSection" class="text-center max-w-4xl mx-auto opacity-0">
+            <div class="mb-6 inline-block">
+              <span class="text-white/90 text-lg font-medium">🌍 Rejoignez la révolution verte</span>
+            </div>
+            <h2 class="text-5xl md:text-6xl font-bold mb-8 text-white">
+              Ensemble pour une Santé<br />
+              <span class="text-earth-100">Plus Naturelle</span>
+            </h2>
+            <p class="text-xl mb-12 text-white/90 leading-relaxed max-w-2xl mx-auto">
+              Faites partie du changement. Adoptez une approche écologique de votre santé dès aujourd'hui.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-6 justify-center">
+              <NuxtLink to="/pharmacies" class="group inline-flex items-center justify-center rounded-2xl bg-white text-nature-700 px-10 py-5 text-base font-semibold shadow-2xl hover:shadow-3xl hover:scale-105 transition-all duration-300">
+                <span class="mr-2 text-2xl">🌿</span>
+                Découvrir les Pharmacies Vertes
+                <svg class="ml-3 h-5 w-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
                 </svg>
               </NuxtLink>
-              <NuxtLink to="/chatbot" class="inline-flex items-center justify-center rounded-lg border-2 border-white px-8 py-3 text-sm font-medium hover:bg-white/10 transition-colors">
-                Essayer l'assistant
+              <NuxtLink to="/chatbot" class="inline-flex items-center justify-center rounded-2xl border-2 border-white text-white px-10 py-5 text-base font-semibold hover:bg-white/10 backdrop-blur-sm transition-all duration-300">
+                <span class="mr-2 text-2xl">💬</span>
+                Assistant Naturel IA
               </NuxtLink>
             </div>
           </div>
         </div>
+
+        <!-- Decorative Elements -->
+        <div class="absolute top-10 left-10 text-8xl opacity-10">🌿</div>
+        <div class="absolute bottom-10 right-10 text-9xl opacity-10">🍃</div>
       </section>
     </div>
   </NuxtLayout>
@@ -193,99 +226,206 @@
 
 <script setup lang="ts">
 import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import Globe from '@/components/ui/Globe.vue'
+import NavigationPill from '@/components/ui/NavigationPill.vue'
+import AnimatedTestimonials from '@/components/ui/AnimatedTestimonials.vue'
+
+gsap.registerPlugin(ScrollTrigger)
 
 const heroContent = ref<HTMLElement | null>(null)
-const heroImage = ref<HTMLElement | null>(null)
-const floatingCard1 = ref<HTMLElement | null>(null)
-const floatingCard2 = ref<HTMLElement | null>(null)
+const heroTitle = ref<HTMLElement | null>(null)
+const heroDesc = ref<HTMLElement | null>(null)
+const heroSearch = ref<HTMLElement | null>(null)
+const heroStats = ref<HTMLElement | null>(null)
+const heroGlobe = ref<HTMLElement | null>(null)
+const leaf1 = ref<HTMLElement | null>(null)
+const leaf2 = ref<HTMLElement | null>(null)
+const leaf3 = ref<HTMLElement | null>(null)
 const featuresTitle = ref<HTMLElement | null>(null)
 const featuresGrid = ref<HTMLElement | null>(null)
+const testimonialsSection = ref<HTMLElement | null>(null)
 const ctaSection = ref<HTMLElement | null>(null)
 
+// Globe configuration with nature colors
+const globeConfig = {
+  width: 800,
+  height: 800,
+  onRender: () => {},
+  devicePixelRatio: 2,
+  phi: 0,
+  theta: 0.3,
+  dark: 0,
+  diffuse: 0.4,
+  mapSamples: 16000,
+  mapBrightness: 1.2,
+  baseColor: [0.7, 0.9, 0.7], // Soft green
+  markerColor: [34 / 255, 139 / 255, 34 / 255], // Forest green
+  glowColor: [0.6, 0.9, 0.6], // Light green glow
+  markers: [
+    { location: [31.7917, -7.0926], size: 0.1 }, // Morocco - Marrakech
+    { location: [33.5731, -7.5898], size: 0.12 }, // Morocco - Casablanca
+    { location: [34.0209, -6.8416], size: 0.1 }, // Morocco - Rabat
+    { location: [35.7595, -5.8340], size: 0.08 }, // Morocco - Tangier
+    { location: [48.8566, 2.3522], size: 0.08 }, // France - Paris
+    { location: [51.5074, -0.1278], size: 0.07 }, // UK - London
+    { location: [40.7128, -74.0060], size: 0.09 }, // USA - New York
+  ],
+}
+
+// Testimonials data
+const testimonials = [
+  {
+    quote: "Cette plateforme a complètement changé ma façon d'aborder ma santé. Les produits naturels recommandés sont de qualité exceptionnelle.",
+    name: "Amina Benjelloun",
+    designation: "Utilisatrice depuis 2023",
+    src: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&h=500&fit=crop",
+  },
+  {
+    quote: "L'engagement écologique des pharmacies partenaires est remarquable. Enfin une plateforme qui allie santé et respect de l'environnement.",
+    name: "Youssef Alami",
+    designation: "Pharmacien partenaire",
+    src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=500&fit=crop",
+  },
+  {
+    quote: "Les conseils personnalisés basés sur la phytothérapie m'ont aidée à trouver des alternatives naturelles efficaces.",
+    name: "Sofia Rahimi",
+    designation: "Cliente fidèle",
+    src: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=500&h=500&fit=crop",
+  },
+  {
+    quote: "Un service innovant qui respecte vraiment l'environnement. Le programme zéro déchet est brillamment mis en œuvre.",
+    name: "Karim Tazi",
+    designation: "Ambassadeur écologique",
+    src: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=500&h=500&fit=crop",
+  },
+]
+
 onMounted(() => {
-  // Hero animations
+  // Hero entrance animation
   const tl = gsap.timeline()
-  
+
   tl.to(heroContent.value, {
     opacity: 1,
+    duration: 0.6,
+    ease: 'power2.out'
+  })
+  .to(heroTitle.value, {
+    opacity: 1,
     y: 0,
     duration: 0.8,
     ease: 'power3.out'
-  })
-  .to(heroImage.value, {
+  }, '-=0.3')
+  .to(heroDesc.value, {
+    opacity: 1,
+    y: 0,
+    duration: 0.6,
+    ease: 'power2.out'
+  }, '-=0.4')
+  .to(heroSearch.value, {
+    opacity: 1,
+    y: 0,
+    duration: 0.6,
+    ease: 'back.out(1.2)'
+  }, '-=0.3')
+  .to(heroStats.value, {
+    opacity: 1,
+    y: 0,
+    duration: 0.6,
+    ease: 'power2.out'
+  }, '-=0.3')
+  .to(heroGlobe.value, {
     opacity: 1,
     scale: 1,
-    duration: 0.8,
+    duration: 1.2,
     ease: 'power3.out'
-  }, '-=0.4')
-  .to(floatingCard1.value, {
-    opacity: 1,
-    x: 0,
-    y: 0,
-    duration: 0.6,
-    ease: 'back.out(1.7)'
-  }, '-=0.3')
-  .to(floatingCard2.value, {
-    opacity: 1,
-    x: 0,
-    y: 0,
-    duration: 0.6,
-    ease: 'back.out(1.7)'
-  }, '-=0.4')
+  }, '-=0.8')
 
-  // Features animation on scroll
+  // Floating leaves animation
+  if (leaf1.value && leaf2.value && leaf3.value) {
+    gsap.set(leaf1.value, { x: '20vw', y: '-10vh', rotation: 0 })
+    gsap.set(leaf2.value, { x: '70vw', y: '30vh', rotation: 45 })
+    gsap.set(leaf3.value, { x: '85vw', y: '70vh', rotation: -30 })
+
+    gsap.to(leaf1.value, {
+      y: '110vh',
+      x: '+=100',
+      rotation: 360,
+      duration: 20,
+      repeat: -1,
+      ease: 'none'
+    })
+
+    gsap.to(leaf2.value, {
+      y: '110vh',
+      x: '-=150',
+      rotation: -360,
+      duration: 25,
+      repeat: -1,
+      ease: 'none'
+    })
+
+    gsap.to(leaf3.value, {
+      y: '110vh',
+      x: '+=80',
+      rotation: 720,
+      duration: 30,
+      repeat: -1,
+      ease: 'none'
+    })
+  }
+
+  // Features scroll animation
   gsap.to(featuresTitle.value, {
     opacity: 1,
     y: 0,
-    duration: 0.6,
+    duration: 0.8,
     scrollTrigger: {
       trigger: featuresTitle.value,
-      start: 'top 80%'
+      start: 'top 80%',
+      toggleActions: 'play none none none'
     }
   })
 
   gsap.to(featuresGrid.value, {
     opacity: 1,
     y: 0,
-    duration: 0.6,
+    duration: 0.8,
     scrollTrigger: {
       trigger: featuresGrid.value,
-      start: 'top 80%'
+      start: 'top 80%',
+      toggleActions: 'play none none none'
     }
   })
 
+  // Testimonials scroll animation
+  gsap.to(testimonialsSection.value, {
+    opacity: 1,
+    duration: 1,
+    scrollTrigger: {
+      trigger: testimonialsSection.value,
+      start: 'top 70%',
+      toggleActions: 'play none none none'
+    }
+  })
+
+  // CTA scroll animation
   gsap.to(ctaSection.value, {
     opacity: 1,
-    y: 0,
-    duration: 0.6,
+    scale: 1,
+    duration: 0.8,
     scrollTrigger: {
       trigger: ctaSection.value,
-      start: 'top 80%'
+      start: 'top 80%',
+      toggleActions: 'play none none none'
     }
-  })
-
-  // Floating animation for cards
-  gsap.to(floatingCard1.value, {
-    y: -10,
-    duration: 2,
-    repeat: -1,
-    yoyo: true,
-    ease: 'sine.inOut'
-  })
-
-  gsap.to(floatingCard2.value, {
-    y: -10,
-    duration: 2.5,
-    repeat: -1,
-    yoyo: true,
-    ease: 'sine.inOut'
   })
 })
 
 useHead({
-  title: 'PharmFinder - Trouvez votre pharmacie',
+  title: 'PharmFinder - Santé Naturelle & Écologique',
   meta: [
-    { name: 'description', content: 'Trouvez les pharmacies près de chez vous et consultez la disponibilité des médicaments en temps réel au Maroc.' }
+    { name: 'description', content: 'Découvrez une approche écologique de la santé. Trouvez les pharmacies vertes près de chez vous et adoptez des produits naturels certifiés au Maroc.' }
   ]
 })
 </script>
