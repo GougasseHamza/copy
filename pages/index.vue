@@ -18,7 +18,7 @@
                 </span>
               </div>
 
-              <h1 ref="heroTitle" class="text-6xl md:text-7xl font-bold tracking-tight opacity-0">
+              <h1 ref="heroTitle" class="text-6xl md:text-7xl font-bold tracking-tight opacity-0 translate-y-8">
                 <span class="bg-gradient-to-r from-nature-700 to-nature-500 dark:from-nature-300 dark:to-nature-100 bg-clip-text text-transparent">
                   Votre Santé,
                 </span>
@@ -27,12 +27,12 @@
                 </span>
               </h1>
 
-              <p ref="heroDesc" class="text-xl text-nature-700/80 dark:text-nature-200/80 max-w-lg leading-relaxed opacity-0">
+              <p ref="heroDesc" class="text-xl text-nature-700/80 dark:text-nature-200/80 max-w-lg leading-relaxed opacity-0 translate-y-8">
                 Découvrez une approche naturelle de la santé. Trouvez les pharmacies engagées dans le développement durable près de chez vous.
               </p>
 
               <!-- Search Bar with Nature Theme -->
-              <div ref="heroSearch" class="flex flex-col sm:flex-row gap-4 max-w-xl opacity-0">
+              <div ref="heroSearch" class="flex flex-col sm:flex-row gap-4 max-w-xl opacity-0 translate-y-8">
                 <div class="relative flex-1">
                   <svg class="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-nature-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
@@ -53,7 +53,7 @@
               </div>
 
               <!-- Stats with Nature Icons -->
-              <div ref="heroStats" class="flex gap-10 pt-6 opacity-0">
+              <div ref="heroStats" class="flex gap-10 pt-6 opacity-0 translate-y-8">
                 <div class="group">
                   <div class="text-4xl font-bold bg-gradient-to-br from-nature-700 to-nature-500 bg-clip-text text-transparent group-hover:scale-110 transition-transform">
                     250+
@@ -82,9 +82,11 @@
             </div>
 
             <!-- Right - Globe Component -->
-            <div ref="heroGlobe" class="relative h-[600px] opacity-0">
+            <div ref="heroGlobe" class="relative h-[600px] opacity-0 scale-95">
               <div class="absolute inset-0 bg-gradient-to-tr from-nature-400/20 to-transparent rounded-full blur-3xl"></div>
-              <Globe :config="globeConfig" />
+              <ClientOnly>
+                <Globe :config="globeConfig" />
+              </ClientOnly>
             </div>
           </div>
         </div>
@@ -112,7 +114,7 @@
         </div>
 
         <div class="container-custom relative z-10">
-          <div ref="featuresTitle" class="text-center mb-20 opacity-0">
+          <div ref="featuresTitle" class="text-center mb-20 opacity-0 translate-y-8">
             <div class="inline-block mb-4">
               <span class="text-nature-600 dark:text-nature-400 font-semibold text-sm uppercase tracking-wider">
                 🌍 Engagement Écologique
@@ -126,7 +128,7 @@
             </p>
           </div>
 
-          <div ref="featuresGrid" class="grid md:grid-cols-3 gap-8 opacity-0">
+          <div ref="featuresGrid" class="grid md:grid-cols-3 gap-8 opacity-0 translate-y-8">
             <!-- Feature 1 -->
             <div class="group p-8 rounded-3xl border-2 border-nature-200 dark:border-nature-700 bg-gradient-to-br from-nature-50 to-white dark:from-nature-900 dark:to-nature-800 hover:shadow-2xl hover:shadow-nature-500/20 transition-all duration-500 hover:-translate-y-2">
               <div class="h-16 w-16 rounded-2xl bg-gradient-to-br from-nature-500 to-nature-600 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-lg shadow-nature-500/30">
@@ -189,7 +191,7 @@
         </div>
 
         <div class="container-custom relative z-10">
-          <div ref="ctaSection" class="text-center max-w-4xl mx-auto opacity-0">
+          <div ref="ctaSection" class="text-center max-w-4xl mx-auto opacity-0 scale-95">
             <div class="mb-6 inline-block">
               <span class="text-white/90 text-lg font-medium">🌍 Rejoignez la révolution verte</span>
             </div>
@@ -230,8 +232,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Globe from '@/components/ui/Globe.vue'
 import NavigationPill from '@/components/ui/NavigationPill.vue'
 import AnimatedTestimonials from '@/components/ui/AnimatedTestimonials.vue'
-
-gsap.registerPlugin(ScrollTrigger)
 
 const heroContent = ref<HTMLElement | null>(null)
 const heroTitle = ref<HTMLElement | null>(null)
@@ -301,45 +301,70 @@ const testimonials = [
   },
 ]
 
-onMounted(() => {
+onMounted(async () => {
+  // Wait for next tick to ensure DOM is ready
+  await nextTick()
+
+  // Ensure GSAP and ScrollTrigger are registered
+  if (typeof window !== 'undefined') {
+    gsap.registerPlugin(ScrollTrigger)
+  }
+
   // Hero entrance animation
   const tl = gsap.timeline()
 
-  tl.to(heroContent.value, {
-    opacity: 1,
-    duration: 0.6,
-    ease: 'power2.out'
-  })
-  .to(heroTitle.value, {
-    opacity: 1,
-    y: 0,
-    duration: 0.8,
-    ease: 'power3.out'
-  }, '-=0.3')
-  .to(heroDesc.value, {
-    opacity: 1,
-    y: 0,
-    duration: 0.6,
-    ease: 'power2.out'
-  }, '-=0.4')
-  .to(heroSearch.value, {
-    opacity: 1,
-    y: 0,
-    duration: 0.6,
-    ease: 'back.out(1.2)'
-  }, '-=0.3')
-  .to(heroStats.value, {
-    opacity: 1,
-    y: 0,
-    duration: 0.6,
-    ease: 'power2.out'
-  }, '-=0.3')
-  .to(heroGlobe.value, {
-    opacity: 1,
-    scale: 1,
-    duration: 1.2,
-    ease: 'power3.out'
-  }, '-=0.8')
+  if (heroContent.value) {
+    tl.to(heroContent.value, {
+      opacity: 1,
+      duration: 0.6,
+      ease: 'power2.out'
+    })
+  }
+
+  if (heroTitle.value) {
+    tl.to(heroTitle.value, {
+      opacity: 1,
+      y: 0,
+      duration: 0.8,
+      ease: 'power3.out'
+    }, '-=0.3')
+  }
+
+  if (heroDesc.value) {
+    tl.to(heroDesc.value, {
+      opacity: 1,
+      y: 0,
+      duration: 0.6,
+      ease: 'power2.out'
+    }, '-=0.4')
+  }
+
+  if (heroSearch.value) {
+    tl.to(heroSearch.value, {
+      opacity: 1,
+      y: 0,
+      duration: 0.6,
+      ease: 'back.out(1.2)'
+    }, '-=0.3')
+  }
+
+  if (heroStats.value) {
+    tl.to(heroStats.value, {
+      opacity: 1,
+      y: 0,
+      duration: 0.6,
+      ease: 'power2.out'
+    }, '-=0.3')
+  }
+
+  if (heroGlobe.value) {
+    tl.to(heroGlobe.value, {
+      opacity: 1,
+      scale: 1,
+      duration: 1.2,
+      ease: 'power3.out'
+    }, '-=0.8')
+  }
 
   // Floating leaves animation
   if (leaf1.value && leaf2.value && leaf3.value) {
@@ -376,50 +401,58 @@ onMounted(() => {
   }
 
   // Features scroll animation
-  gsap.to(featuresTitle.value, {
-    opacity: 1,
-    y: 0,
-    duration: 0.8,
-    scrollTrigger: {
-      trigger: featuresTitle.value,
-      start: 'top 80%',
-      toggleActions: 'play none none none'
-    }
-  })
+  if (featuresTitle.value) {
+    gsap.to(featuresTitle.value, {
+      opacity: 1,
+      y: 0,
+      duration: 0.8,
+      scrollTrigger: {
+        trigger: featuresTitle.value,
+        start: 'top 80%',
+        toggleActions: 'play none none none'
+      }
+    })
+  }
 
-  gsap.to(featuresGrid.value, {
-    opacity: 1,
-    y: 0,
-    duration: 0.8,
-    scrollTrigger: {
-      trigger: featuresGrid.value,
-      start: 'top 80%',
-      toggleActions: 'play none none none'
-    }
-  })
+  if (featuresGrid.value) {
+    gsap.to(featuresGrid.value, {
+      opacity: 1,
+      y: 0,
+      duration: 0.8,
+      scrollTrigger: {
+        trigger: featuresGrid.value,
+        start: 'top 80%',
+        toggleActions: 'play none none none'
+      }
+    })
+  }
 
   // Testimonials scroll animation
-  gsap.to(testimonialsSection.value, {
-    opacity: 1,
-    duration: 1,
-    scrollTrigger: {
-      trigger: testimonialsSection.value,
-      start: 'top 70%',
-      toggleActions: 'play none none none'
-    }
-  })
+  if (testimonialsSection.value) {
+    gsap.to(testimonialsSection.value, {
+      opacity: 1,
+      duration: 1,
+      scrollTrigger: {
+        trigger: testimonialsSection.value,
+        start: 'top 70%',
+        toggleActions: 'play none none none'
+      }
+    })
+  }
 
   // CTA scroll animation
-  gsap.to(ctaSection.value, {
-    opacity: 1,
-    scale: 1,
-    duration: 0.8,
-    scrollTrigger: {
-      trigger: ctaSection.value,
-      start: 'top 80%',
-      toggleActions: 'play none none none'
-    }
-  })
+  if (ctaSection.value) {
+    gsap.to(ctaSection.value, {
+      opacity: 1,
+      scale: 1,
+      duration: 0.8,
+      scrollTrigger: {
+        trigger: ctaSection.value,
+        start: 'top 80%',
+        toggleActions: 'play none none none'
+      }
+    })
+  }
 })
 
 useHead({
