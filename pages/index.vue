@@ -187,12 +187,32 @@
           </div>
         </div>
       </section>
+
+      <!-- Scroll Animation Section -->
+      <section class="bg-background">
+        <ContainerScroll>
+          <template #title>
+            <h1 class="text-4xl font-semibold text-black dark:text-white">
+              Découvrez la puissance de <br />
+              <span class="text-4xl md:text-[6rem] font-bold mt-1 leading-none">
+                PharmFinder
+              </span>
+            </h1>
+          </template>
+          <img
+            src="https://images.unsplash.com/photo-1576602976047-174e57a47881?w=1400&h=720&fit=crop&q=75"
+            alt="Pharmacy Dashboard"
+            class="mx-auto rounded-2xl object-cover h-full object-left-top w-full"
+          />
+        </ContainerScroll>
+      </section>
     </div>
   </NuxtLayout>
 </template>
 
 <script setup lang="ts">
 import { gsap } from 'gsap'
+import ContainerScroll from '~/components/ui/ContainerScroll.vue'
 
 const heroContent = ref<HTMLElement | null>(null)
 const heroImage = ref<HTMLElement | null>(null)

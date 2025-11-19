@@ -1,72 +1,10 @@
 <template>
   <div class="min-h-screen bg-background">
     <!-- Navigation -->
-    <nav class="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div class="container-custom flex h-16 items-center justify-between">
-        <!-- Logo -->
-        <NuxtLink to="/" class="flex items-center space-x-2">
-          <svg class="h-8 w-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
-          </svg>
-          <span class="text-xl font-bold">PharmFinder</span>
-        </NuxtLink>
-
-        <!-- Desktop Navigation -->
-        <div class="hidden md:flex items-center space-x-6">
-          <NuxtLink to="/pharmacies" class="text-sm font-medium transition-colors hover:text-primary">
-            Pharmacies
-          </NuxtLink>
-          <NuxtLink to="/products" class="text-sm font-medium transition-colors hover:text-primary">
-            Produits
-          </NuxtLink>
-          <NuxtLink to="/chatbot" class="text-sm font-medium transition-colors hover:text-primary">
-            Assistant
-          </NuxtLink>
-          <NuxtLink to="/staff" class="text-sm font-medium transition-colors hover:text-primary">
-            Personnel
-          </NuxtLink>
-        </div>
-
-        <!-- Auth Buttons -->
-        <div class="flex items-center space-x-4">
-          <NuxtLink to="/auth/login" class="hidden md:inline-flex items-center justify-center text-sm font-medium transition-colors hover:text-primary">
-            Connexion
-          </NuxtLink>
-          <NuxtLink to="/auth/signup" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow hover:bg-primary/90">
-            S'inscrire
-          </NuxtLink>
-          
-          <!-- Mobile Menu Button -->
-          <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden inline-flex items-center justify-center rounded-md p-2 hover:bg-accent">
-            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path v-if="!mobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-              <path v-else stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-            </svg>
-          </button>
-        </div>
-      </div>
-
-      <!-- Mobile Menu -->
-      <div v-if="mobileMenuOpen" class="md:hidden border-t">
-        <div class="space-y-1 px-4 py-3">
-          <NuxtLink to="/pharmacies" class="block rounded-md px-3 py-2 text-base font-medium hover:bg-accent" @click="mobileMenuOpen = false">
-            Pharmacies
-          </NuxtLink>
-          <NuxtLink to="/products" class="block rounded-md px-3 py-2 text-base font-medium hover:bg-accent" @click="mobileMenuOpen = false">
-            Produits
-          </NuxtLink>
-          <NuxtLink to="/chatbot" class="block rounded-md px-3 py-2 text-base font-medium hover:bg-accent" @click="mobileMenuOpen = false">
-            Assistant
-          </NuxtLink>
-          <NuxtLink to="/staff" class="block rounded-md px-3 py-2 text-base font-medium hover:bg-accent" @click="mobileMenuOpen = false">
-            Personnel
-          </NuxtLink>
-          <NuxtLink to="/auth/login" class="block rounded-md px-3 py-2 text-base font-medium hover:bg-accent" @click="mobileMenuOpen = false">
-            Connexion
-          </NuxtLink>
-        </div>
-      </div>
-    </nav>
+    <NavigationMenu
+      brand-name="PharmFinder"
+      :items="navItems"
+    />
 
     <!-- Main Content -->
     <main>
@@ -120,11 +58,12 @@
 </template>
 
 <script setup lang="ts">
-const mobileMenuOpen = ref(false)
+import NavigationMenu from '~/components/ui/NavigationMenu.vue'
 
-// Close mobile menu on route change
-const route = useRoute()
-watch(() => route.path, () => {
-  mobileMenuOpen.value = false
-})
+const navItems = [
+  { label: 'Pharmacies', href: '/pharmacies' },
+  { label: 'Produits', href: '/products' },
+  { label: 'Assistant', href: '/chatbot' },
+  { label: 'Personnel', href: '/staff' }
+]
 </script>
