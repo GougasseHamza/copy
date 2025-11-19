@@ -104,6 +104,54 @@
         </div>
       </section>
 
+      <!-- Spline 3D Interactive Section -->
+      <section ref="splineSection" class="py-28 relative overflow-hidden opacity-0">
+        <div class="container-custom">
+          <div class="text-center mb-16">
+            <div class="inline-block mb-4">
+              <span class="text-nature-600 dark:text-nature-400 font-semibold text-sm uppercase tracking-wider">
+                ✨ Expérience Interactive
+              </span>
+            </div>
+            <h2 class="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-nature-700 to-nature-500 bg-clip-text text-transparent">
+              Découvrez Notre Univers 3D
+            </h2>
+            <p class="text-nature-700/70 dark:text-nature-300/70 text-lg max-w-3xl mx-auto leading-relaxed">
+              Une expérience immersive qui donne vie à notre engagement pour la santé naturelle
+            </p>
+          </div>
+
+          <Card class="w-full h-[500px] bg-black/[0.96] relative overflow-hidden">
+            <Spotlight
+              class-name="-top-40 left-0 md:left-60 md:-top-20"
+              fill="white"
+            />
+
+            <div class="flex h-full flex-col md:flex-row">
+              <!-- Left content -->
+              <div class="flex-1 p-8 relative z-10 flex flex-col justify-center">
+                <h3 class="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400">
+                  Interactive 3D
+                </h3>
+                <p class="mt-4 text-neutral-300 max-w-lg">
+                  Explorez notre vision d'une santé durable à travers une expérience 3D captivante.
+                  Interagissez avec notre écosystème naturel et découvrez comment nous transformons
+                  l'accès aux soins de santé.
+                </p>
+              </div>
+
+              <!-- Right content - Spline Scene -->
+              <div class="flex-1 relative">
+                <SplineScene
+                  scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
+                  class-name="w-full h-full"
+                />
+              </div>
+            </div>
+          </Card>
+        </div>
+      </section>
+
       <!-- Features Section with Nature Cards -->
       <section class="py-28 relative overflow-hidden">
         <!-- Background Pattern -->
@@ -161,6 +209,27 @@
             </div>
           </div>
         </div>
+      </section>
+
+      <!-- Container Scroll Animation Section -->
+      <section class="relative bg-gradient-to-br from-nature-50 to-earth-50 dark:from-nature-900 dark:to-nature-800">
+        <ContainerScroll>
+          <template #title>
+            <h2 class="text-4xl font-semibold text-nature-800 dark:text-white">
+              Découvrez la Puissance de <br />
+              <span class="text-4xl md:text-[6rem] font-bold mt-1 leading-none bg-gradient-to-r from-nature-700 to-nature-500 bg-clip-text text-transparent">
+                Notre Plateforme
+              </span>
+            </h2>
+          </template>
+
+          <img
+            src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1400&h=720&fit=crop&q=80"
+            alt="Pharmacy platform showcase"
+            class="mx-auto rounded-2xl object-cover h-full object-left-top"
+            draggable="false"
+          />
+        </ContainerScroll>
       </section>
 
       <!-- Testimonials Section -->
@@ -230,6 +299,10 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Globe from '@/components/ui/Globe.vue'
 import NavigationPill from '@/components/ui/NavigationPill.vue'
 import AnimatedTestimonials from '@/components/ui/AnimatedTestimonials.vue'
+import SplineScene from '@/components/ui/SplineScene.vue'
+import ContainerScroll from '@/components/ui/ContainerScroll.vue'
+import Card from '@/components/ui/Card.vue'
+import Spotlight from '@/components/ui/Spotlight.vue'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -242,6 +315,7 @@ const heroGlobe = ref<HTMLElement | null>(null)
 const leaf1 = ref<HTMLElement | null>(null)
 const leaf2 = ref<HTMLElement | null>(null)
 const leaf3 = ref<HTMLElement | null>(null)
+const splineSection = ref<HTMLElement | null>(null)
 const featuresTitle = ref<HTMLElement | null>(null)
 const featuresGrid = ref<HTMLElement | null>(null)
 const testimonialsSection = ref<HTMLElement | null>(null)
@@ -374,6 +448,18 @@ onMounted(() => {
       ease: 'none'
     })
   }
+
+  // Spline section scroll animation
+  gsap.to(splineSection.value, {
+    opacity: 1,
+    y: 0,
+    duration: 1,
+    scrollTrigger: {
+      trigger: splineSection.value,
+      start: 'top 70%',
+      toggleActions: 'play none none none'
+    }
+  })
 
   // Features scroll animation
   gsap.to(featuresTitle.value, {
