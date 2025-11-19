@@ -1,11 +1,11 @@
 <template>
-  <div>
-    <h1>Product Details Page</h1>
-    <!-- To be implemented -->
-  </div>
+  <NuxtLayout name="default">
+    <div class="container-custom py-8">
+      <h1 class="text-4xl font-bold mb-8">Product Details</h1>
+      <p>Product ID: {{ $route.params.id }}</p>
+    </div>
+  </NuxtLayout>
 </template>
 
-<script setup>
-// Product detail page with dynamic id
+<script setup lang="ts">
 </script>
-

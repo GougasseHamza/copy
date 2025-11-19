@@ -1,0 +1,30 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: pharmacy-finder-api
+
+firebase:
+  credentials:
+    path: classpath:firebase-service-account.json
+  database:
+    url: https://your-project-id.firebaseio.com
+
+google:
+  maps:
+    api-key: ${GOOGLE_MAPS_API_KEY:your_api_key_here}
+
+cors:
+  allowed-origins:
+    - http://localhost:3000
+    - https://your-production-domain.com
+
+api:
+  version: v1
+  base-path: /api
+
+logging:
+  level:
+    com.pharmfinder: DEBUG
+    org.springframework: INFO
