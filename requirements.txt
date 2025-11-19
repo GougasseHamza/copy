@@ -1,0 +1,5 @@
+# Python dependencies for backend services (RAG chatbot handled by n8n)
+fastapi==0.115.0
+uvicorn==0.32.0
+python-dotenv==1.0.1
+

@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom styles for the Pharmacy Finder app */
+body {
+  @apply bg-gray-50;
+}
+
+/* Mobile-first responsive adjustments */
+.container-custom {
+  @apply w-full px-4 mx-auto;
+  max-width: 1200px;
+}
+
