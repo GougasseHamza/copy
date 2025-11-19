@@ -11,25 +11,26 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
-    "nuxt": "^3.14.1",
+    "@googlemaps/js-api-loader": "^1.16.8",
     "@nuxtjs/tailwindcss": "^6.13.0",
     "@pinia/nuxt": "^0.5.1",
-    "pinia": "^2.2.5",
     "@vueuse/core": "^11.2.0",
     "@vueuse/nuxt": "^11.2.0",
-    "shadcn-nuxt": "^0.10.4",
-    "radix-vue": "^1.9.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
-    "tailwind-merge": "^2.5.4",
-    "lucide-vue-next": "^0.446.0",
+    "cobe": "^0.6.5",
+    "date-fns": "^4.1.0",
     "gsap": "^3.12.5",
-    "@googlemaps/js-api-loader": "^1.16.8",
-    "date-fns": "^4.1.0"
+    "lucide-vue-next": "^0.446.0",
+    "nuxt": "^3.14.1",
+    "pinia": "^2.2.5",
+    "radix-vue": "^1.9.0",
+    "shadcn-nuxt": "^0.10.4",
+    "tailwind-merge": "^2.5.4"
   },
   "devDependencies": {
     "@types/node": "^22.8.4",
-    "typescript": "^5.6.3",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "typescript": "^5.6.3"
   }
 }
