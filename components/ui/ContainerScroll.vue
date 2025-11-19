@@ -36,8 +36,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, watch } from 'vue'
-import { useScroll } from '@vueuse/core'
+import { ref, onMounted, onUnmounted } from 'vue'
 
 const containerRef = ref<HTMLElement | null>(null)
 const rotate = ref(20)
@@ -49,33 +48,41 @@ const checkMobile = () => {
   isMobile.value = window.innerWidth <= 768
 }
 
+const updateScrollProgress = () => {
+  if (!containerRef.value) return
+
+  const rect = containerRef.value.getBoundingClientRect()
+  const windowHeight = window.innerHeight
+  const elementHeight = rect.height
+
+  // Calculate scroll progress: 0 when element enters viewport, 1 when it leaves
+  const scrollStart = rect.top + elementHeight
+  const scrollRange = windowHeight + elementHeight
+  const progress = Math.min(Math.max(1 - (scrollStart / scrollRange), 0), 1)
+
+  // Update rotate: 20 -> 0
+  rotate.value = 20 - (progress * 20)
+
+  // Update scale: 1.05 -> 1 (or 0.7 -> 0.9 on mobile)
+  if (isMobile.value) {
+    scale.value = 0.7 + (progress * 0.2)
+  } else {
+    scale.value = 1.05 - (progress * 0.05)
+  }
+
+  // Update translate: 0 -> -100
+  translate.value = -(progress * 100)
+}
+
 onMounted(() => {
   checkMobile()
   window.addEventListener('resize', checkMobile)
-
-  if (containerRef.value) {
-    const { y } = useScroll(containerRef.value)
-
-    watch(y, (newY) => {
-      const progress = Math.min(Math.max(newY / 1000, 0), 1)
-
-      // Update rotate: 20 -> 0
-      rotate.value = 20 - (progress * 20)
-
-      // Update scale: 1.05 -> 1 (or 0.7 -> 0.9 on mobile)
-      if (isMobile.value) {
-        scale.value = 0.7 + (progress * 0.2)
-      } else {
-        scale.value = 1.05 - (progress * 0.05)
-      }
-
-      // Update translate: 0 -> -100
-      translate.value = -(progress * 100)
-    })
-  }
+  window.addEventListener('scroll', updateScrollProgress)
+  updateScrollProgress()
 })
 
 onUnmounted(() => {
   window.removeEventListener('resize', checkMobile)
+  window.removeEventListener('scroll', updateScrollProgress)
 })
 </script>

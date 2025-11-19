@@ -163,6 +163,28 @@
         </div>
       </section>
 
+      <!-- Interactive 3D Robot Section -->
+      <section class="py-20 relative overflow-hidden bg-gradient-to-br from-nature-50 to-white dark:from-nature-950 dark:to-nature-900">
+        <div class="container-custom">
+          <ContainerScroll>
+            <template #title>
+              <div class="space-y-4">
+                <h2 class="text-4xl md:text-6xl font-bold bg-gradient-to-r from-nature-700 to-nature-500 bg-clip-text text-transparent">
+                  Découvrez Notre Assistant IA
+                </h2>
+                <p class="text-nature-700/70 dark:text-nature-300/70 text-lg max-w-2xl mx-auto">
+                  Interagissez avec notre assistant virtuel 3D pour obtenir des conseils santé personnalisés
+                </p>
+              </div>
+            </template>
+            <SplineScene
+              scene="https://prod.spline.design/6Wq1Q7YGyM-iab9i/scene.splinecode"
+              class="w-full h-full"
+            />
+          </ContainerScroll>
+        </div>
+      </section>
+
       <!-- Testimonials Section -->
       <section ref="testimonialsSection" class="py-28 bg-gradient-to-br from-nature-100 to-earth-50 dark:from-nature-900 dark:to-nature-800 opacity-0">
         <div class="container-custom">
@@ -230,6 +252,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Globe from '@/components/ui/Globe.vue'
 import NavigationPill from '@/components/ui/NavigationPill.vue'
 import AnimatedTestimonials from '@/components/ui/AnimatedTestimonials.vue'
+import ContainerScroll from '@/components/ui/ContainerScroll.vue'
+import SplineScene from '@/components/ui/SplineScene.vue'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -302,6 +326,9 @@ const testimonials = [
 ]
 
 onMounted(() => {
+  // Set initial states
+  gsap.set(heroGlobe.value, { scale: 0.8 })
+
   // Hero entrance animation
   const tl = gsap.timeline()
 
