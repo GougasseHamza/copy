@@ -1,5 +1,6 @@
 package com.pharmfinder.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,6 +17,10 @@ public class User {
     private String phone;
     private UserRole role;
     private String pharmacyId;
+    
+    @JsonIgnore  // Never send password hash to client
+    private String passwordHash;
+    
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }
