@@ -142,8 +142,29 @@
       <div class="grid md:grid-cols-3 gap-6">
         <!-- Pharmacy List/Map -->
         <div :class="viewMode === 'map' ? 'md:col-span-2' : 'md:col-span-3'">
+          <!-- Loading State -->
+          <div v-if="isLoading" class="flex flex-col items-center justify-center py-20">
+            <div class="animate-spin rounded-full h-16 w-16 border-4 border-nature-500 border-t-transparent"></div>
+            <p class="mt-4 text-beige-600 dark:text-beige-400">Chargement des pharmacies...</p>
+          </div>
+
+          <!-- Error State -->
+          <div v-else-if="error" class="bg-red-50 dark:bg-red-900/20 border-2 border-red-200 dark:border-red-800 rounded-2xl p-8 text-center">
+            <svg class="mx-auto h-12 w-12 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <h3 class="mt-4 text-lg font-semibold text-red-800 dark:text-red-200">Erreur de chargement</h3>
+            <p class="mt-2 text-red-600 dark:text-red-400">{{ error }}</p>
+            <button
+              @click="() => window.location.reload()"
+              class="mt-4 px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition"
+            >
+              Réessayer
+            </button>
+          </div>
+
           <!-- List View -->
-          <div v-if="viewMode === 'list'" class="space-y-5">
+          <div v-else-if="viewMode === 'list'" class="space-y-5">
             <div
               v-for="(pharmacy, index) in filteredPharmacies"
               :key="pharmacy.id"
@@ -356,10 +377,12 @@
 <script setup lang="ts">
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { mockPharmacies, type Pharmacy } from '~/data/mockData'
+import { type Pharmacy } from '~/data/mockData'
 import Spotlight from '@/components/ui/Spotlight.vue'
 
 gsap.registerPlugin(ScrollTrigger)
+
+const api = useApi()
 
 const searchQuery = ref('')
 const viewMode = ref<'list' | 'map'>('list')
@@ -371,11 +394,69 @@ const selectedPharmacy = ref<Pharmacy | null>(null)
 const headerSection = ref<HTMLElement | null>(null)
 const searchSection = ref<HTMLElement | null>(null)
 
+// Fetch pharmacies from backend
+const pharmacies = ref<Pharmacy[]>([])
+const isLoading = ref(true)
+const error = ref<string | null>(null)
+
+// Fetch pharmacies on mount
+onMounted(async () => {
+  try {
+    isLoading.value = true
+
+    // Try to get user location for nearby pharmacies
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          // Get nearby pharmacies
+          const response = await api.getNearbyPharmacies(
+            position.coords.latitude,
+            position.coords.longitude,
+            5000 // 5km radius
+          )
+          pharmacies.value = response.data || []
+        },
+        async () => {
+          // Fallback to all pharmacies if location denied
+          const response = await api.fetchPharmacies()
+          pharmacies.value = response.data || []
+        }
+      )
+    } else {
+      // No geolocation support, get all pharmacies
+      const response = await api.fetchPharmacies()
+      pharmacies.value = response.data || []
+    }
+  } catch (err: any) {
+    error.value = err.message || 'Failed to load pharmacies'
+    console.error('Error loading pharmacies:', err)
+  } finally {
+    isLoading.value = false
+  }
+
+  // Animate header
+  gsap.from(headerSection.value, {
+    opacity: 0,
+    y: -20,
+    duration: 0.6,
+    ease: 'power3.out'
+  })
+
+  // Animate search section
+  gsap.from(searchSection.value, {
+    opacity: 0,
+    y: 20,
+    duration: 0.6,
+    delay: 0.2,
+    ease: 'power3.out'
+  })
+})
+
 const filteredPharmacies = computed(() => {
-  let pharmacies = [...mockPharmacies]
+  let filtered = [...pharmacies.value]
 
   if (searchQuery.value) {
-    pharmacies = pharmacies.filter(p =>
+    filtered = filtered.filter(p =>
       p.name.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
       p.address.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
       p.city.toLowerCase().includes(searchQuery.value.toLowerCase())
@@ -383,22 +464,22 @@ const filteredPharmacies = computed(() => {
   }
 
   if (filterOpen.value) {
-    pharmacies = pharmacies.filter(p => p.isOpen)
+    filtered = filtered.filter(p => p.isOpen)
   }
 
   if (minRating.value > 0) {
-    pharmacies = pharmacies.filter(p => p.rating >= minRating.value)
+    filtered = filtered.filter(p => p.rating >= minRating.value)
   }
 
   if (sortByDistance.value) {
-    pharmacies = pharmacies.sort((a, b) => (a.distance || 0) - (b.distance || 0))
+    filtered = filtered.sort((a, b) => (a.distance || 0) - (b.distance || 0))
   }
 
-  return pharmacies
+  return filtered
 })
 
 const openCount = computed(() => {
-  return mockPharmacies.filter(p => p.isOpen).length
+  return pharmacies.value.filter(p => p.isOpen).length
 })
 
 const selectPharmacy = (pharmacy: Pharmacy) => {
@@ -423,25 +504,6 @@ const getDirections = (pharmacy: Pharmacy) => {
     window.open(url, '_blank')
   }
 }
-
-onMounted(() => {
-  // Animate header
-  gsap.from(headerSection.value, {
-    opacity: 0,
-    y: -20,
-    duration: 0.6,
-    ease: 'power3.out'
-  })
-
-  // Animate search section
-  gsap.from(searchSection.value, {
-    opacity: 0,
-    y: 20,
-    duration: 0.6,
-    delay: 0.2,
-    ease: 'power3.out'
-  })
-})
 
 useHead({
   title: 'Pharmacies - PharmFinder',
