@@ -426,6 +426,36 @@ const getDirections = (pharmacy: Pharmacy) => {
   }
 }
 
+// Track if we've animated the cards to prevent re-animation
+const cardsAnimated = ref(false)
+
+// Function to animate pharmacy cards
+const animatePharmacyCards = () => {
+  if (pharmacyCards.value && pharmacyCards.value.length > 0 && !cardsAnimated.value) {
+    cardsAnimated.value = true
+    gsap.from(pharmacyCards.value, {
+      opacity: 0,
+      y: 30,
+      duration: 0.5,
+      stagger: 0.1,
+      ease: 'power3.out'
+    })
+  }
+}
+
+// Watch for when view mode changes to list or when cards are populated
+watch([viewMode, () => pharmacyCards.value.length], ([mode, length]) => {
+  if (mode === 'list' && length > 0) {
+    nextTick(() => {
+      animatePharmacyCards()
+    })
+  }
+  // Reset animation flag when switching away from list view
+  if (mode !== 'list') {
+    cardsAnimated.value = false
+  }
+})
+
 onMounted(() => {
   // Animate header
   gsap.from(headerSection.value, {
@@ -444,18 +474,11 @@ onMounted(() => {
     ease: 'power3.out'
   })
 
-  // Animate pharmacy cards with stagger - simpler approach
+  // Animate pharmacy cards on initial mount
   nextTick(() => {
-    if (pharmacyCards.value && pharmacyCards.value.length > 0) {
-      gsap.from(pharmacyCards.value, {
-        opacity: 0,
-        y: 30,
-        duration: 0.5,
-        stagger: 0.1,
-        delay: 0.4,
-        ease: 'power3.out'
-      })
-    }
+    setTimeout(() => {
+      animatePharmacyCards()
+    }, 100)
   })
 })
 
