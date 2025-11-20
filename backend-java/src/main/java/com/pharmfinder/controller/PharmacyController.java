@@ -21,8 +21,23 @@ public class PharmacyController {
             @RequestParam(required = false) String city,
             @RequestParam(required = false) Boolean isOpen
     ) {
-        // TODO: Implement
-        return ResponseEntity.ok(new ApiResponse<>(true, "Success", null));
+        List<Pharmacy> pharmacies = pharmacyService.getAllPharmacies();
+        
+        // Filter by city if provided
+        if (city != null && !city.isEmpty()) {
+            pharmacies = pharmacies.stream()
+                    .filter(p -> p.getCity().equalsIgnoreCase(city))
+                    .toList();
+        }
+        
+        // Filter by isOpen if provided
+        if (isOpen != null) {
+            pharmacies = pharmacies.stream()
+                    .filter(p -> p.getIsOpen().equals(isOpen))
+                    .toList();
+        }
+        
+        return ResponseEntity.ok(new ApiResponse<>(true, "Pharmacies retrieved successfully", pharmacies));
     }
 
     @GetMapping("/nearby")
@@ -31,20 +46,23 @@ public class PharmacyController {
             @RequestParam Double longitude,
             @RequestParam(defaultValue = "5") Double radius
     ) {
-        // TODO: Implement
-        return ResponseEntity.ok(new ApiResponse<>(true, "Success", null));
+        List<Pharmacy> pharmacies = pharmacyService.getNearbyPharmacies(latitude, longitude, radius);
+        return ResponseEntity.ok(new ApiResponse<>(true, "Nearby pharmacies retrieved successfully", pharmacies));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse<Pharmacy>> getPharmacyById(@PathVariable String id) {
-        // TODO: Implement
-        return ResponseEntity.ok(new ApiResponse<>(true, "Success", null));
+        Pharmacy pharmacy = pharmacyService.getPharmacyById(id);
+        if (pharmacy == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(new ApiResponse<>(true, "Pharmacy retrieved successfully", pharmacy));
     }
 
     @PostMapping
     public ResponseEntity<ApiResponse<Pharmacy>> createPharmacy(@RequestBody Pharmacy pharmacy) {
-        // TODO: Implement
-        return ResponseEntity.ok(new ApiResponse<>(true, "Created", null));
+        Pharmacy created = pharmacyService.createPharmacy(pharmacy);
+        return ResponseEntity.ok(new ApiResponse<>(true, "Pharmacy created successfully", created));
     }
 
     @PutMapping("/{id}")
@@ -52,7 +70,10 @@ public class PharmacyController {
             @PathVariable String id,
             @RequestBody Pharmacy pharmacy
     ) {
-        // TODO: Implement
-        return ResponseEntity.ok(new ApiResponse<>(true, "Updated", null));
+        Pharmacy updated = pharmacyService.updatePharmacy(id, pharmacy);
+        if (updated == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(new ApiResponse<>(true, "Pharmacy updated successfully", updated));
     }
 }
