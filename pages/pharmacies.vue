@@ -443,16 +443,17 @@ onMounted(() => {
     ease: 'power3.out'
   })
 
-  // Animate pharmacy cards with stagger
-  gsap.from(pharmacyCards.value, {
-    opacity: 0,
-    y: 30,
-    duration: 0.5,
-    stagger: 0.1,
-    ease: 'power3.out',
-    scrollTrigger: {
-      trigger: pharmacyCards.value[0],
-      start: 'top 80%'
+  // Animate pharmacy cards with stagger - simpler approach
+  nextTick(() => {
+    if (pharmacyCards.value && pharmacyCards.value.length > 0) {
+      gsap.from(pharmacyCards.value, {
+        opacity: 0,
+        y: 30,
+        duration: 0.5,
+        stagger: 0.1,
+        delay: 0.4,
+        ease: 'power3.out'
+      })
     }
   })
 })

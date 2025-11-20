@@ -1,7 +1,9 @@
 <template>
   <div class="min-h-screen bg-background">
     <!-- Navigation Pill -->
-    <UiNavigationPill class="fixed top-8 left-1/2 transform -translate-x-1/2 z-50" />
+    <div class="fixed top-8 left-1/2 transform -translate-x-1/2 z-[100]">
+      <UiNavigationPill />
+    </div>
 
     <!-- Main Content -->
     <main>
