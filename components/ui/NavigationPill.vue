@@ -273,18 +273,20 @@ const handleScroll = () => {
 
   const currentScrollY = window.scrollY
 
+  // Always show at the top
+  if (currentScrollY < scrollThreshold) {
+    isHidden.value = false
+    lastScrollY.value = currentScrollY
+    return
+  }
+
   // Show navbar when scrolling up, hide when scrolling down
   if (currentScrollY < lastScrollY.value) {
     // Scrolling up
     isHidden.value = false
-  } else if (currentScrollY > scrollThreshold && currentScrollY > lastScrollY.value) {
+  } else if (currentScrollY > lastScrollY.value) {
     // Scrolling down and past threshold
     isHidden.value = true
-  }
-
-  // Always show at the top
-  if (currentScrollY < scrollThreshold) {
-    isHidden.value = false
   }
 
   lastScrollY.value = currentScrollY
@@ -292,6 +294,10 @@ const handleScroll = () => {
 
 onMounted(() => {
   if (typeof window !== 'undefined') {
+    // Ensure navbar is visible on mount
+    isHidden.value = false
+    lastScrollY.value = window.scrollY
+
     window.addEventListener('scroll', handleScroll, { passive: true })
   }
 })
