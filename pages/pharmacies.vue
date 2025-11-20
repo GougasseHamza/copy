@@ -3,7 +3,7 @@
     <!-- Hero Section -->
     <div class="relative overflow-hidden bg-gradient-to-br from-nature-800 via-beige-800 to-earth-800 py-20 mb-12">
       <div class="absolute inset-0 bg-[url('/grid.svg')] opacity-10"></div>
-      <UiSpotlight
+      <Spotlight
         class="absolute -top-40 left-0 md:left-60 md:-top-20"
         fill="rgba(134, 197, 134, 0.15)"
       />
@@ -358,6 +358,7 @@
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { mockPharmacies, type Pharmacy } from '~/data/mockData'
+import Spotlight from '@/components/ui/Spotlight.vue'
 
 gsap.registerPlugin(ScrollTrigger)
 

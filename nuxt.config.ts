@@ -14,6 +14,14 @@ export default defineNuxtConfig({
     componentDir: './components/ui'
   },
 
+  // Components auto-import configuration
+  components: [
+    {
+      path: '~/components',
+      pathPrefix: false,
+    },
+  ],
+
   // TypeScript
   typescript: {
     strict: true

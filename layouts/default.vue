@@ -2,7 +2,7 @@
   <div class="min-h-screen bg-background">
     <!-- Navigation Pill -->
     <div class="fixed top-8 left-1/2 transform -translate-x-1/2 z-[100]">
-      <UiNavigationPill />
+      <NavigationPill />
     </div>
 
     <!-- Main Content -->
@@ -57,4 +57,5 @@
 </template>
 
 <script setup lang="ts">
+import NavigationPill from '@/components/ui/NavigationPill.vue'
 </script>
