@@ -163,6 +163,29 @@
         </div>
       </section>
 
+      <!-- Interactive Spline Section with ContainerScroll -->
+      <section class="relative overflow-hidden bg-gradient-to-br from-white to-nature-50 dark:from-nature-950 dark:to-nature-900">
+        <ContainerScroll>
+          <template #title>
+            <div class="space-y-4">
+              <span class="inline-block bg-nature-500/20 text-nature-700 dark:text-nature-300 px-5 py-2 rounded-full text-sm font-semibold border border-nature-500/30">
+                ✨ Innovation 3D
+              </span>
+              <h2 class="text-5xl md:text-6xl font-bold bg-gradient-to-r from-nature-700 to-nature-500 bg-clip-text text-transparent">
+                Explorez en 3D
+              </h2>
+              <p class="text-nature-700/70 dark:text-nature-300/70 text-lg max-w-2xl mx-auto">
+                Découvrez notre vision interactive de la santé naturelle
+              </p>
+            </div>
+          </template>
+          <SplineScene
+            scene="https://prod.spline.design/Uk7qJlq2LfrGwjbS/scene.splinecode"
+            class-name="w-full h-full"
+          />
+        </ContainerScroll>
+      </section>
+
       <!-- Testimonials Section -->
       <section ref="testimonialsSection" class="py-28 bg-gradient-to-br from-nature-100 to-earth-50 dark:from-nature-900 dark:to-nature-800 opacity-0">
         <div class="container-custom">
@@ -230,6 +253,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Globe from '@/components/ui/Globe.vue'
 import NavigationPill from '@/components/ui/NavigationPill.vue'
 import AnimatedTestimonials from '@/components/ui/AnimatedTestimonials.vue'
+import ContainerScroll from '@/components/ui/ContainerScroll.vue'
+import SplineScene from '@/components/ui/SplineScene.vue'
 
 gsap.registerPlugin(ScrollTrigger)
 

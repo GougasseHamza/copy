@@ -36,8 +36,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, watch } from 'vue'
-import { useScroll } from '@vueuse/core'
+import { ref, onMounted, onUnmounted } from 'vue'
+import { useScroll, useElementBounding } from '@vueuse/core'
 
 const containerRef = ref<HTMLElement | null>(null)
 const rotate = ref(20)
@@ -54,13 +54,28 @@ onMounted(() => {
   window.addEventListener('resize', checkMobile)
 
   if (containerRef.value) {
-    const { y } = useScroll(containerRef.value)
+    // Track window scroll instead of container scroll
+    const { y: scrollY } = useScroll(window)
+    const { top, height } = useElementBounding(containerRef)
 
-    watch(y, (newY) => {
-      const progress = Math.min(Math.max(newY / 1000, 0), 1)
+    // Watch for scroll changes
+    const updateValues = () => {
+      // Calculate progress based on element position in viewport
+      // Start animating when element enters viewport, finish when it's about to leave
+      const windowHeight = window.innerHeight
+      const scrollProgress = scrollY.value
+      const elementTop = top.value
+
+      // Calculate scroll progress within the container's scroll range
+      // Animation starts when container enters viewport and ends when it's scrolled past
+      const startScroll = elementTop + scrollProgress - windowHeight
+      const endScroll = elementTop + scrollProgress + height.value / 2
+      const scrollRange = endScroll - startScroll
+
+      const progress = Math.min(Math.max((scrollProgress - startScroll) / scrollRange, 0), 1)
 
       // Update rotate: 20 -> 0
-      rotate.value = 20 - (progress * 20)
+      rotate.value = 20 * (1 - progress)
 
       // Update scale: 1.05 -> 1 (or 0.7 -> 0.9 on mobile)
       if (isMobile.value) {
@@ -71,6 +86,23 @@ onMounted(() => {
 
       // Update translate: 0 -> -100
       translate.value = -(progress * 100)
+    }
+
+    // Use requestAnimationFrame for smooth updates
+    let rafId: number
+    const onScroll = () => {
+      if (rafId) cancelAnimationFrame(rafId)
+      rafId = requestAnimationFrame(updateValues)
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true })
+
+    // Initial update
+    updateValues()
+
+    onUnmounted(() => {
+      window.removeEventListener('scroll', onScroll)
+      if (rafId) cancelAnimationFrame(rafId)
     })
   }
 })

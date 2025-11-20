@@ -1,7 +1,7 @@
 <template>
   <Suspense>
     <template #default>
-      <div ref="splineContainer" :class="className" class="w-full h-full"></div>
+      <div ref="splineContainer" :class="[className, 'w-full h-full']"></div>
     </template>
     <template #fallback>
       <div class="w-full h-full flex items-center justify-center">
@@ -20,7 +20,9 @@ interface Props {
   className?: string
 }
 
-const props = defineProps<Props>()
+const props = withDefaults(defineProps<Props>(), {
+  className: ''
+})
 
 const splineContainer = ref<HTMLDivElement | null>(null)
 let splineApp: Application | null = null
