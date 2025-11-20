@@ -64,6 +64,18 @@ module.exports = {
           300: 'hsl(var(--earth-300))',
           400: 'hsl(var(--earth-400))',
           500: 'hsl(var(--earth-500))',
+        },
+        beige: {
+          50: 'hsl(var(--beige-50))',
+          100: 'hsl(var(--beige-100))',
+          200: 'hsl(var(--beige-200))',
+          300: 'hsl(var(--beige-300))',
+          400: 'hsl(var(--beige-400))',
+          500: 'hsl(var(--beige-500))',
+          600: 'hsl(var(--beige-600))',
+          700: 'hsl(var(--beige-700))',
+          800: 'hsl(var(--beige-800))',
+          900: 'hsl(var(--beige-900))',
         }
       },
       borderRadius: {

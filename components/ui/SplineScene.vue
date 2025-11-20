@@ -1,14 +1,14 @@
 <template>
   <div :class="className" class="w-full h-full relative">
     <canvas ref="splineCanvas" class="w-full h-full"></canvas>
-    <div v-if="isLoading" class="absolute inset-0 flex items-center justify-center z-10 bg-nature-700/20">
+    <div v-if="isLoading" class="absolute inset-0 flex items-center justify-center z-10 bg-beige-800/20">
       <div class="text-center">
         <span class="loader"></span>
-        <p class="text-nature-50 mt-4 text-sm">{{ loadingMessage }}</p>
+        <p class="text-beige-50 mt-4 text-sm">{{ loadingMessage }}</p>
       </div>
     </div>
-    <div v-if="error" class="absolute inset-0 flex items-center justify-center z-10 bg-nature-700/80">
-      <div class="text-center text-nature-50 p-6">
+    <div v-if="error" class="absolute inset-0 flex items-center justify-center z-10 bg-beige-800/80">
+      <div class="text-center text-beige-50 p-6">
         <p class="text-lg font-semibold mb-2">Failed to load 3D scene</p>
         <p class="text-sm opacity-75">{{ error }}</p>
       </div>
@@ -91,8 +91,8 @@ onUnmounted(() => {
 .loader {
   width: 48px;
   height: 48px;
-  border: 5px solid rgba(134, 239, 172, 0.3);
-  border-bottom-color: #86efac;
+  border: 5px solid rgba(212, 165, 116, 0.3);
+  border-bottom-color: #d4a574;
   border-radius: 50%;
   display: inline-block;
   box-sizing: border-box;
