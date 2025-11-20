@@ -11,6 +11,7 @@ interface GlobeProps {
 
 export function Globe({ className = '', config }: GlobeProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
   const pointerInteracting = useRef<number | null>(null)
   const pointerInteractionMovement = useRef(0)
   const [r, setR] = useState(0)
@@ -57,28 +58,43 @@ export function Globe({ className = '', config }: GlobeProps) {
     }
 
     const onResize = () => {
-      if (canvasRef.current) {
-        width = canvasRef.current.offsetWidth
+      if (containerRef.current) {
+        width = containerRef.current.offsetWidth
+        console.log('Globe: Container width =', width)
       }
     }
 
-    window.addEventListener('resize', onResize)
-    onResize()
+    const initGlobe = () => {
+      window.addEventListener('resize', onResize)
+      onResize()
 
-    if (canvasRef.current) {
-      globe = createGlobe(canvasRef.current, {
-        ...mergedConfig,
-        width: width * 2,
-        height: width * 2,
-        onRender,
-      })
+      if (canvasRef.current && width > 0) {
+        console.log('Globe: Creating globe with width', width * 2)
+        globe = createGlobe(canvasRef.current, {
+          ...mergedConfig,
+          width: width * 2,
+          height: width * 2,
+          onRender,
+        })
 
-      setTimeout(() => {
-        if (canvasRef.current) {
-          canvasRef.current.style.opacity = '1'
-        }
-      }, 100)
+        setTimeout(() => {
+          if (canvasRef.current) {
+            canvasRef.current.style.opacity = '1'
+          }
+        }, 100)
+      } else {
+        console.warn('Globe: Canvas not ready or width is 0', {
+          hasCanvas: !!canvasRef.current,
+          hasContainer: !!containerRef.current,
+          width
+        })
+      }
     }
+
+    // Use requestAnimationFrame to ensure layout has completed
+    requestAnimationFrame(() => {
+      initGlobe()
+    })
 
     const handlePointerDown = (e: PointerEvent) => {
       pointerInteracting.current = e.clientX - pointerInteractionMovement.current
@@ -142,7 +158,7 @@ export function Globe({ className = '', config }: GlobeProps) {
   }, [mergedConfig, r])
 
   return (
-    <div className={cn('absolute inset-0 mx-auto aspect-[1/1] w-full max-w-[600px]', className)}>
+    <div ref={containerRef} className={cn('absolute inset-0 mx-auto aspect-[1/1] w-full max-w-[600px]', className)}>
       <canvas
         ref={canvasRef}
         className={cn('size-full opacity-0 transition-opacity duration-500 [contain:layout_paint_size]')}
