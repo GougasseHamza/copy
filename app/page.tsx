@@ -1,20 +1,10 @@
 'use client'
 
 import Link from 'next/link'
-import dynamic from 'next/dynamic'
 import { Card } from '@/components/ui/Card'
 import { Spotlight } from '@/components/ui/Spotlight'
-
-// Dynamically import Globe with no SSR to avoid hydration issues
-const Globe = dynamic(() => import('@/components/ui/Globe').then(mod => ({ default: mod.Globe })), {
-  ssr: false,
-  loading: () => <div className="w-full h-full flex items-center justify-center"><div className="text-muted-foreground">Loading Globe...</div></div>
-})
-
-// Dynamically import AnimatedTestimonials
-const AnimatedTestimonials = dynamic(() => import('@/components/ui/AnimatedTestimonials').then(mod => ({ default: mod.AnimatedTestimonials })), {
-  ssr: false,
-})
+import { SimpleGlobe } from '@/components/ui/SimpleGlobe'
+import { AnimatedTestimonials } from '@/components/ui/AnimatedTestimonials'
 
 const testimonials = [
   {
@@ -71,8 +61,8 @@ export default function Home() {
             </div>
 
             {/* Right - Globe */}
-            <div className="relative h-[400px] lg:h-[600px] w-full">
-              <Globe />
+            <div className="relative h-[400px] lg:h-[600px] w-full flex items-center justify-center">
+              <SimpleGlobe />
             </div>
           </div>
         </div>

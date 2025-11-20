@@ -4,6 +4,8 @@ import { Card } from '@/components/ui/Card'
 import { Spotlight } from '@/components/ui/Spotlight'
 import { SimpleGlobe } from '@/components/ui/SimpleGlobe'
 import { AnimatedTestimonials } from '@/components/ui/AnimatedTestimonials'
+import { SplineScene } from '@/components/ui/SplineScene'
+import { ContainerScroll } from '@/components/ui/ContainerScroll'
 
 const testimonials = [
   {
@@ -64,6 +66,49 @@ export default function TestPage() {
           <AnimatedTestimonials testimonials={testimonials} autoplay />
         </div>
         <p className="mt-2 text-sm text-muted-foreground">You should see animated testimonials with navigation buttons</p>
+      </div>
+
+      {/* Test SplineScene */}
+      <div className="mb-8">
+        <h2 className="text-2xl font-semibold mb-4">6. SplineScene Component (3D Scene):</h2>
+        <div className="relative h-[600px] w-full max-w-[800px] bg-muted/30 rounded-lg overflow-hidden">
+          <SplineScene
+            scene="https://prod.spline.design/6Wq1Q7YGyM-iab9i/scene.splinecode"
+            className="w-full h-full"
+          />
+        </div>
+        <p className="mt-2 text-sm text-muted-foreground">You should see an interactive 3D Spline scene above</p>
+      </div>
+
+      {/* Test ContainerScroll */}
+      <div className="mb-8">
+        <h2 className="text-2xl font-semibold mb-4">7. ContainerScroll Animation:</h2>
+        <ContainerScroll
+          titleComponent={
+            <div className="space-y-4">
+              <h3 className="text-4xl md:text-6xl font-bold text-foreground">
+                Scroll Animation
+              </h3>
+              <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
+                Scroll down to see the 3D perspective animation effect
+              </p>
+            </div>
+          }
+        >
+          <div className="h-full w-full bg-gradient-to-br from-nature-500 to-nature-700 flex items-center justify-center rounded-lg">
+            <div className="text-center text-white p-8">
+              <h4 className="text-3xl md:text-5xl font-bold mb-4">
+                Pharmacy Dashboard
+              </h4>
+              <p className="text-lg md:text-xl opacity-90">
+                Beautiful 3D scroll animation with perspective transforms
+              </p>
+            </div>
+          </div>
+        </ContainerScroll>
+        <p className="mt-2 text-sm text-muted-foreground">
+          Scroll down the page to see the container transform with 3D perspective
+        </p>
       </div>
     </div>
   )
