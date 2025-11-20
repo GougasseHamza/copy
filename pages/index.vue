@@ -1,11 +1,6 @@
 <template>
   <NuxtLayout name="default">
     <div class="relative">
-      <!-- Fixed Navigation Pill -->
-      <div class="fixed top-8 left-1/2 -translate-x-1/2 z-50">
-        <NavigationPill />
-      </div>
-
       <!-- Spline Hero Section -->
       <section id="home" class="relative overflow-hidden min-h-screen flex items-center py-20">
         <Card class="w-full min-h-[90vh] bg-gradient-to-br from-beige-800/95 via-beige-700/95 to-earth-700/95 relative overflow-hidden border-none">
@@ -284,7 +279,7 @@
               Rejoignez des milliers d'utilisateurs qui facilitent leur accès aux médicaments avec PharmFinder.
             </p>
             <div class="flex flex-col sm:flex-row gap-6 justify-center">
-              <NuxtLink to="/pharmacies" class="group inline-flex items-center justify-center rounded-2xl bg-white text-beige-900 px-10 py-5 text-base font-semibold shadow-2xl hover:shadow-3xl hover:scale-105 transition-all duration-300">
+              <NuxtLink to="/pharmacies" class="group inline-flex items-center justify-center rounded-2xl bg-gradient-to-r from-nature-500 to-nature-600 text-white px-10 py-5 text-base font-semibold shadow-2xl shadow-nature-500/40 hover:shadow-nature-500/60 hover:scale-105 transition-all duration-300">
                 <span class="mr-2 text-2xl">📍</span>
                 Trouver une Pharmacie
                 <svg class="ml-3 h-5 w-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -311,7 +306,6 @@
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Globe from '@/components/ui/Globe.vue'
-import NavigationPill from '@/components/ui/NavigationPill.vue'
 import AnimatedTestimonials from '@/components/ui/AnimatedTestimonials.vue'
 import SplineScene from '@/components/ui/SplineScene.vue'
 import ContainerScroll from '@/components/ui/ContainerScroll.vue'

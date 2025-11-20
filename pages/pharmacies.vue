@@ -1,11 +1,11 @@
 <template>
   <NuxtLayout name="default">
     <!-- Hero Section -->
-    <div class="relative overflow-hidden bg-gradient-to-br from-beige-900 via-beige-800 to-earth-900 py-20 mb-12">
+    <div class="relative overflow-hidden bg-gradient-to-br from-nature-800 via-beige-800 to-earth-800 py-20 mb-12">
       <div class="absolute inset-0 bg-[url('/grid.svg')] opacity-10"></div>
       <UiSpotlight
         class="absolute -top-40 left-0 md:left-60 md:-top-20"
-        fill="rgba(212, 165, 116, 0.2)"
+        fill="rgba(134, 197, 134, 0.15)"
       />
       <div class="container-custom relative z-10" ref="headerSection">
         <h1 class="text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-beige-50 via-beige-100 to-earth-100 bg-clip-text text-transparent">
@@ -18,15 +18,15 @@
         <!-- Stats -->
         <div class="grid grid-cols-3 gap-6 mt-8 max-w-2xl">
           <div class="text-center">
-            <div class="text-3xl font-bold text-earth-300">{{ filteredPharmacies.length }}</div>
+            <div class="text-3xl font-bold text-nature-300">{{ filteredPharmacies.length }}</div>
             <div class="text-sm text-beige-200">Pharmacies</div>
           </div>
           <div class="text-center">
-            <div class="text-3xl font-bold text-earth-300">{{ openCount }}</div>
-            <div class="text-sm text-beige-200">Ouvertes</div>
+            <div class="text-3xl font-bold text-nature-400">{{ openCount }}</div>
+            <div class="text-sm text-nature-200">Ouvertes</div>
           </div>
           <div class="text-center">
-            <div class="text-3xl font-bold text-earth-300">24/7</div>
+            <div class="text-3xl font-bold text-nature-300">24/7</div>
             <div class="text-sm text-beige-200">Disponible</div>
           </div>
         </div>
@@ -90,8 +90,8 @@
             :class="[
               'px-5 py-2.5 rounded-xl border-2 transition-all duration-300 font-medium',
               filterOpen
-                ? 'bg-earth-500 text-white border-earth-500 shadow-lg shadow-earth-500/30'
-                : 'border-beige-300 dark:border-beige-600 hover:border-earth-400 hover:bg-earth-50 dark:hover:bg-earth-900/30'
+                ? 'bg-nature-500 text-white border-nature-500 shadow-lg shadow-nature-500/30'
+                : 'border-beige-300 dark:border-beige-600 hover:border-nature-400 hover:bg-nature-50 dark:hover:bg-nature-900/30'
             ]"
           >
             <div class="flex items-center gap-2">
@@ -107,8 +107,8 @@
             :class="[
               'px-5 py-2.5 rounded-xl border-2 transition-all duration-300 font-medium',
               minRating === 4
-                ? 'bg-earth-500 text-white border-earth-500 shadow-lg shadow-earth-500/30'
-                : 'border-beige-300 dark:border-beige-600 hover:border-earth-400 hover:bg-earth-50 dark:hover:bg-earth-900/30'
+                ? 'bg-nature-600 text-white border-nature-600 shadow-lg shadow-nature-600/30'
+                : 'border-beige-300 dark:border-beige-600 hover:border-nature-400 hover:bg-nature-50 dark:hover:bg-nature-900/30'
             ]"
           >
             <div class="flex items-center gap-2">
@@ -124,8 +124,8 @@
             :class="[
               'px-5 py-2.5 rounded-xl border-2 transition-all duration-300 font-medium',
               sortByDistance
-                ? 'bg-earth-500 text-white border-earth-500 shadow-lg shadow-earth-500/30'
-                : 'border-beige-300 dark:border-beige-600 hover:border-earth-400 hover:bg-earth-50 dark:hover:bg-earth-900/30'
+                ? 'bg-nature-600 text-white border-nature-600 shadow-lg shadow-nature-600/30'
+                : 'border-beige-300 dark:border-beige-600 hover:border-nature-400 hover:bg-nature-50 dark:hover:bg-nature-900/30'
             ]"
           >
             <div class="flex items-center gap-2">
@@ -181,7 +181,7 @@
                   <!-- Content -->
                   <div class="flex-1 min-w-0">
                     <div class="mb-3">
-                      <h3 class="text-2xl font-bold text-beige-900 dark:text-beige-50 group-hover:text-earth-600 dark:group-hover:text-earth-400 transition-colors mb-1">
+                      <h3 class="text-2xl font-bold text-beige-900 dark:text-beige-50 group-hover:text-nature-600 dark:group-hover:text-nature-400 transition-colors mb-1">
                         {{ pharmacy.name }}
                       </h3>
                       <div class="flex items-start gap-2 text-beige-600 dark:text-beige-300">
@@ -214,7 +214,7 @@
                     <div class="flex items-center gap-2">
                       <button
                         @click.stop="navigateTo(`/pharmacy/${pharmacy.id}`)"
-                        class="flex-1 px-5 py-3 bg-gradient-to-r from-earth-500 to-earth-600 text-white rounded-xl font-semibold hover:from-earth-600 hover:to-earth-700 hover:shadow-lg hover:shadow-earth-500/30 transform hover:scale-105 transition-all duration-300"
+                        class="flex-1 px-5 py-3 bg-gradient-to-r from-nature-600 to-nature-700 text-white rounded-xl font-semibold hover:from-nature-700 hover:to-nature-800 hover:shadow-lg hover:shadow-nature-600/30 transform hover:scale-105 transition-all duration-300"
                       >
                         💊 Voir les produits
                       </button>
@@ -343,7 +343,7 @@
 
             <NuxtLink
               :to="`/pharmacy/${selectedPharmacy.id}`"
-              class="block w-full text-center px-6 py-4 bg-gradient-to-r from-earth-500 to-earth-600 text-white rounded-xl font-bold hover:from-earth-600 hover:to-earth-700 hover:shadow-lg hover:shadow-earth-500/30 transform hover:scale-105 transition-all duration-300"
+              class="block w-full text-center px-6 py-4 bg-gradient-to-r from-nature-600 to-nature-700 text-white rounded-xl font-bold hover:from-nature-700 hover:to-nature-800 hover:shadow-lg hover:shadow-nature-600/30 transform hover:scale-105 transition-all duration-300"
             >
               💊 Voir les détails
             </NuxtLink>
