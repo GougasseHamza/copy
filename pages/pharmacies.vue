@@ -147,7 +147,6 @@
             <div
               v-for="(pharmacy, index) in filteredPharmacies"
               :key="pharmacy.id"
-              ref="pharmacyCards"
               class="group relative bg-white dark:bg-beige-900/30 backdrop-blur-sm rounded-2xl border-2 border-beige-200 dark:border-beige-700 overflow-hidden hover:border-earth-400 dark:hover:border-earth-500 hover:shadow-2xl hover:shadow-earth-500/10 transition-all duration-500 cursor-pointer"
               @click="selectPharmacy(pharmacy)"
             >
@@ -371,7 +370,6 @@ const favorites = ref<string[]>([])
 const selectedPharmacy = ref<Pharmacy | null>(null)
 const headerSection = ref<HTMLElement | null>(null)
 const searchSection = ref<HTMLElement | null>(null)
-const pharmacyCards = ref<HTMLElement[]>([])
 
 const filteredPharmacies = computed(() => {
   let pharmacies = [...mockPharmacies]
@@ -426,36 +424,6 @@ const getDirections = (pharmacy: Pharmacy) => {
   }
 }
 
-// Track if we've animated the cards to prevent re-animation
-const cardsAnimated = ref(false)
-
-// Function to animate pharmacy cards
-const animatePharmacyCards = () => {
-  if (pharmacyCards.value && pharmacyCards.value.length > 0 && !cardsAnimated.value) {
-    cardsAnimated.value = true
-    gsap.from(pharmacyCards.value, {
-      opacity: 0,
-      y: 30,
-      duration: 0.5,
-      stagger: 0.1,
-      ease: 'power3.out'
-    })
-  }
-}
-
-// Watch for when view mode changes to list or when cards are populated
-watch([viewMode, () => pharmacyCards.value.length], ([mode, length]) => {
-  if (mode === 'list' && length > 0) {
-    nextTick(() => {
-      animatePharmacyCards()
-    })
-  }
-  // Reset animation flag when switching away from list view
-  if (mode !== 'list') {
-    cardsAnimated.value = false
-  }
-})
-
 onMounted(() => {
   // Animate header
   gsap.from(headerSection.value, {
@@ -472,13 +440,6 @@ onMounted(() => {
     duration: 0.6,
     delay: 0.2,
     ease: 'power3.out'
-  })
-
-  // Animate pharmacy cards on initial mount
-  nextTick(() => {
-    setTimeout(() => {
-      animatePharmacyCards()
-    }, 100)
   })
 })
 
