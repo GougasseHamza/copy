@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { cn } from '@/lib/utils'
 
@@ -24,6 +24,7 @@ const IconArrowLeft = () => (
     viewBox="0 0 24 24"
     strokeWidth="1.5"
     stroke="currentColor"
+    className="h-5 w-5 text-foreground group-hover/button:rotate-12 transition-transform duration-300"
   >
     <path
       strokeLinecap="round"
@@ -40,6 +41,7 @@ const IconArrowRight = () => (
     viewBox="0 0 24 24"
     strokeWidth="1.5"
     stroke="currentColor"
+    className="h-5 w-5 text-foreground group-hover/button:-rotate-12 transition-transform duration-300"
   >
     <path
       strokeLinecap="round"
@@ -56,13 +58,13 @@ export function AnimatedTestimonials({
 }: AnimatedTestimonialsProps) {
   const [active, setActive] = useState(0)
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     setActive((prev) => (prev + 1) % testimonials.length)
-  }
+  }, [testimonials.length])
 
-  const handlePrev = () => {
+  const handlePrev = useCallback(() => {
     setActive((prev) => (prev - 1 + testimonials.length) % testimonials.length)
-  }
+  }, [testimonials.length])
 
   const randomRotateY = () => {
     return Math.floor(Math.random() * 21) - 10
@@ -73,7 +75,7 @@ export function AnimatedTestimonials({
       const interval = setInterval(handleNext, 5000)
       return () => clearInterval(interval)
     }
-  }, [autoplay])
+  }, [autoplay, handleNext])
 
   return (
     <div className={cn('max-w-sm md:max-w-4xl mx-auto px-4 md:px-8 lg:px-12 py-20', className)}>
@@ -93,9 +95,9 @@ export function AnimatedTestimonials({
                         rotateY: randomRotateY(),
                       }}
                       animate={{
-                        opacity: index === active ? 1 : 0.7,
-                        scale: index === active ? 1 : 0.95,
-                        rotateY: index === active ? 0 : randomRotateY(),
+                        opacity: 1,
+                        scale: 1,
+                        rotateY: 0,
                       }}
                       exit={{
                         opacity: 0,
@@ -166,13 +168,13 @@ export function AnimatedTestimonials({
           <div className="flex gap-4 pt-12 md:pt-0">
             <button
               onClick={handlePrev}
-              className="h-7 w-7 rounded-full bg-secondary flex items-center justify-center group/button"
+              className="h-7 w-7 rounded-full bg-secondary flex items-center justify-center group/button hover:bg-secondary/80 transition-colors"
             >
               <IconArrowLeft />
             </button>
             <button
               onClick={handleNext}
-              className="h-7 w-7 rounded-full bg-secondary flex items-center justify-center group/button"
+              className="h-7 w-7 rounded-full bg-secondary flex items-center justify-center group/button hover:bg-secondary/80 transition-colors"
             >
               <IconArrowRight />
             </button>

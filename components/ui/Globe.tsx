@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useEffect, useState } from 'react'
+import { useRef, useEffect, useState, useMemo } from 'react'
 import createGlobe, { type COBEOptions } from 'cobe'
 import { cn } from '@/lib/utils'
 
@@ -14,8 +14,9 @@ export function Globe({ className = '', config }: GlobeProps) {
   const pointerInteracting = useRef<number | null>(null)
   const pointerInteractionMovement = useRef(0)
   const [r, setR] = useState(0)
+  const phiRef = useRef(0)
 
-  const defaultConfig: COBEOptions = {
+  const mergedConfig = useMemo<COBEOptions>(() => ({
     width: 800,
     height: 800,
     onRender: () => {},
@@ -41,33 +42,16 @@ export function Globe({ className = '', config }: GlobeProps) {
       { location: [34.6937, 135.5022], size: 0.05 },
       { location: [41.0082, 28.9784], size: 0.06 },
     ],
-  }
-
-  const mergedConfig = { ...defaultConfig, ...config }
+    ...config,
+  }), [config])
 
   useEffect(() => {
-    let phi = 0
     let width = 0
     let globe: any = null
 
-    const updatePointerInteraction = (value: number | null) => {
-      pointerInteracting.current = value
-      if (canvasRef.current) {
-        canvasRef.current.style.cursor = value !== null ? 'grabbing' : 'grab'
-      }
-    }
-
-    const updateMovement = (clientX: number) => {
-      if (pointerInteracting.current !== null) {
-        const delta = clientX - pointerInteracting.current
-        pointerInteractionMovement.current = delta
-        setR(delta / 200)
-      }
-    }
-
     const onRender = (state: Record<string, any>) => {
-      if (!pointerInteracting.current) phi += 0.005
-      state.phi = phi + r
+      if (!pointerInteracting.current) phiRef.current += 0.005
+      state.phi = phiRef.current + r
       state.width = width * 2
       state.height = width * 2
     }
@@ -93,28 +77,43 @@ export function Globe({ className = '', config }: GlobeProps) {
         if (canvasRef.current) {
           canvasRef.current.style.opacity = '1'
         }
-      }, 0)
+      }, 100)
     }
 
     const handlePointerDown = (e: PointerEvent) => {
-      updatePointerInteraction(e.clientX - pointerInteractionMovement.current)
+      pointerInteracting.current = e.clientX - pointerInteractionMovement.current
+      if (canvasRef.current) {
+        canvasRef.current.style.cursor = 'grabbing'
+      }
     }
 
     const handlePointerUp = () => {
-      updatePointerInteraction(null)
+      pointerInteracting.current = null
+      if (canvasRef.current) {
+        canvasRef.current.style.cursor = 'grab'
+      }
     }
 
     const handlePointerOut = () => {
-      updatePointerInteraction(null)
+      pointerInteracting.current = null
+      if (canvasRef.current) {
+        canvasRef.current.style.cursor = 'grab'
+      }
     }
 
     const handleMouseMove = (e: MouseEvent) => {
-      updateMovement(e.clientX)
+      if (pointerInteracting.current !== null) {
+        const delta = e.clientX - pointerInteracting.current
+        pointerInteractionMovement.current = delta
+        setR(delta / 200)
+      }
     }
 
     const handleTouchMove = (e: TouchEvent) => {
-      if (e.touches[0]) {
-        updateMovement(e.touches[0].clientX)
+      if (e.touches[0] && pointerInteracting.current !== null) {
+        const delta = e.touches[0].clientX - pointerInteracting.current
+        pointerInteractionMovement.current = delta
+        setR(delta / 200)
       }
     }
 
@@ -140,13 +139,14 @@ export function Globe({ className = '', config }: GlobeProps) {
         globe.destroy()
       }
     }
-  }, [r, mergedConfig])
+  }, [mergedConfig, r])
 
   return (
     <div className={cn('absolute inset-0 mx-auto aspect-[1/1] w-full max-w-[600px]', className)}>
       <canvas
         ref={canvasRef}
         className={cn('size-full opacity-0 transition-opacity duration-500 [contain:layout_paint_size]')}
+        style={{ cursor: 'grab' }}
       />
     </div>
   )
