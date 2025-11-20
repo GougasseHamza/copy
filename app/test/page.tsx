@@ -1,19 +1,9 @@
 'use client'
 
-import dynamic from 'next/dynamic'
 import { Card } from '@/components/ui/Card'
 import { Spotlight } from '@/components/ui/Spotlight'
-
-// Dynamically import Globe and AnimatedTestimonials
-const Globe = dynamic(() => import('@/components/ui/Globe').then(mod => ({ default: mod.Globe })), {
-  ssr: false,
-  loading: () => <div className="w-full h-full flex items-center justify-center text-muted-foreground">Loading Globe...</div>
-})
-
-const AnimatedTestimonials = dynamic(() => import('@/components/ui/AnimatedTestimonials').then(mod => ({ default: mod.AnimatedTestimonials })), {
-  ssr: false,
-  loading: () => <div className="w-full h-full flex items-center justify-center text-muted-foreground">Loading Testimonials...</div>
-})
+import { SimpleGlobe } from '@/components/ui/SimpleGlobe'
+import { AnimatedTestimonials } from '@/components/ui/AnimatedTestimonials'
 
 const testimonials = [
   {
@@ -58,13 +48,13 @@ export default function TestPage() {
         <p className="relative z-10 p-4">You should see a green glowing spotlight effect animating in</p>
       </div>
 
-      {/* Test Globe */}
+      {/* Test Simple Globe */}
       <div className="mb-8">
-        <h2 className="text-2xl font-semibold mb-4">4. Globe Component:</h2>
-        <div className="relative h-[400px] w-full max-w-[600px] bg-muted/30 rounded-lg">
-          <Globe />
+        <h2 className="text-2xl font-semibold mb-4">4. Simple Globe Component (COBE Test):</h2>
+        <div className="relative h-[600px] w-full max-w-[600px] bg-muted/30 rounded-lg p-4">
+          <SimpleGlobe />
         </div>
-        <p className="mt-2 text-sm text-muted-foreground">You should see an interactive 3D globe above</p>
+        <p className="mt-2 text-sm text-muted-foreground">You should see a rotating 3D globe above. Check console (F12) for errors!</p>
       </div>
 
       {/* Test AnimatedTestimonials */}
