@@ -7,91 +7,101 @@
       </div>
 
       <!-- Spline Hero Section -->
-      <section id="home" class="relative overflow-hidden bg-gradient-to-br from-nature-900 via-nature-800 to-earth-900 min-h-screen flex items-center">
-        <!-- Spline Scene Background -->
-        <div class="absolute inset-0 z-0">
-          <ClientOnly>
-            <SplineScene
-              scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
-              class="w-full h-full"
-            />
-            <template #fallback>
-              <div class="w-full h-full flex items-center justify-center bg-nature-900">
-                <div class="text-nature-100 text-lg">Loading 3D Scene...</div>
+      <section id="home" class="relative overflow-hidden min-h-screen flex items-center py-20">
+        <Card class="w-full min-h-[90vh] bg-gradient-to-br from-nature-900/95 via-nature-800/95 to-earth-900/95 relative overflow-hidden border-none">
+          <!-- Spotlight Effect -->
+          <Spotlight
+            class-name="-top-40 left-0 md:left-60 md:-top-20"
+            :fill="'#86efac'"
+          />
+
+          <div class="flex flex-col lg:flex-row h-full min-h-[90vh]">
+            <!-- Left Content -->
+            <div ref="heroContent" class="flex-1 p-8 md:p-16 relative z-10 flex flex-col justify-center opacity-0">
+              <div class="inline-block mb-6 w-fit">
+                <span class="bg-nature-400/30 text-nature-100 px-6 py-3 rounded-full text-sm font-semibold border border-nature-400/40 backdrop-blur-md">
+                  🌿 Plateforme éco-responsable
+                </span>
               </div>
-            </template>
-          </ClientOnly>
-        </div>
 
-        <!-- Green Nature Overlay -->
-        <div class="absolute inset-0 bg-gradient-to-br from-nature-900/70 via-nature-800/60 to-transparent z-10"></div>
+              <h1 ref="heroTitle" class="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-8 opacity-0">
+                <span class="bg-gradient-to-r from-nature-200 via-nature-100 to-nature-300 bg-clip-text text-transparent">
+                  Votre Santé,
+                </span>
+                <span class="block mt-3 bg-gradient-to-r from-earth-300 to-nature-200 bg-clip-text text-transparent">
+                  Notre Nature
+                </span>
+              </h1>
 
-        <!-- Content -->
-        <div class="container-custom py-32 md:py-40 relative z-20">
-          <div ref="heroContent" class="max-w-4xl opacity-0">
-            <div class="inline-block mb-6">
-              <span class="bg-nature-400/30 text-nature-100 px-6 py-3 rounded-full text-sm font-semibold border border-nature-400/40 backdrop-blur-md">
-                🌿 Plateforme éco-responsable
-              </span>
+              <p ref="heroDesc" class="text-xl md:text-2xl text-nature-100/90 max-w-2xl leading-relaxed mb-10 opacity-0">
+                Découvrez une approche naturelle de la santé. Trouvez les pharmacies engagées dans le développement durable près de chez vous.
+              </p>
+
+              <!-- CTA Buttons -->
+              <div ref="heroButtons" class="flex flex-col sm:flex-row gap-6 mb-12 opacity-0">
+                <NuxtLink to="/pharmacies" class="group inline-flex items-center justify-center rounded-2xl bg-gradient-to-r from-nature-500 to-nature-600 px-10 py-5 text-lg font-semibold text-white shadow-2xl shadow-nature-500/40 hover:shadow-nature-500/60 hover:scale-105 transition-all duration-300">
+                  <span class="mr-2 text-2xl">🌿</span>
+                  Découvrir
+                  <svg class="ml-3 h-5 w-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                  </svg>
+                </NuxtLink>
+                <NuxtLink to="/chatbot" class="inline-flex items-center justify-center rounded-2xl border-2 border-nature-300 text-nature-100 px-10 py-5 text-lg font-semibold hover:bg-nature-400/20 backdrop-blur-sm transition-all duration-300">
+                  <span class="mr-2 text-2xl">💬</span>
+                  Assistant IA
+                </NuxtLink>
+              </div>
+
+              <!-- Stats -->
+              <div ref="heroStats" class="flex gap-8 lg:gap-12 opacity-0">
+                <div class="group">
+                  <div class="text-4xl md:text-5xl font-bold bg-gradient-to-br from-nature-200 to-nature-400 bg-clip-text text-transparent group-hover:scale-110 transition-transform">
+                    250+
+                  </div>
+                  <div class="text-xs md:text-sm text-nature-200/90 flex items-center gap-1 mt-2">
+                    🌱 Pharmacies
+                  </div>
+                </div>
+                <div class="group">
+                  <div class="text-4xl md:text-5xl font-bold bg-gradient-to-br from-nature-200 to-nature-400 bg-clip-text text-transparent group-hover:scale-110 transition-transform">
+                    5000+
+                  </div>
+                  <div class="text-xs md:text-sm text-nature-200/90 flex items-center gap-1 mt-2">
+                    🍃 Produits
+                  </div>
+                </div>
+                <div class="group">
+                  <div class="text-4xl md:text-5xl font-bold bg-gradient-to-br from-nature-200 to-nature-400 bg-clip-text text-transparent group-hover:scale-110 transition-transform">
+                    24/7
+                  </div>
+                  <div class="text-xs md:text-sm text-nature-200/90 flex items-center gap-1 mt-2">
+                    ♻️ Service
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <h1 ref="heroTitle" class="text-6xl md:text-8xl font-bold tracking-tight mb-8 opacity-0">
-              <span class="bg-gradient-to-r from-nature-200 via-nature-100 to-nature-300 bg-clip-text text-transparent">
-                Votre Santé,
-              </span>
-              <span class="block mt-3 bg-gradient-to-r from-earth-300 to-nature-200 bg-clip-text text-transparent">
-                Notre Nature
-              </span>
-            </h1>
-
-            <p ref="heroDesc" class="text-2xl text-nature-100/90 max-w-2xl leading-relaxed mb-10 opacity-0">
-              Découvrez une approche naturelle de la santé. Trouvez les pharmacies engagées dans le développement durable près de chez vous.
-            </p>
-
-            <!-- CTA Buttons -->
-            <div ref="heroButtons" class="flex flex-col sm:flex-row gap-6 opacity-0">
-              <NuxtLink to="/pharmacies" class="group inline-flex items-center justify-center rounded-2xl bg-gradient-to-r from-nature-500 to-nature-600 px-10 py-5 text-lg font-semibold text-white shadow-2xl shadow-nature-500/40 hover:shadow-nature-500/60 hover:scale-105 transition-all duration-300">
-                <span class="mr-2 text-2xl">🌿</span>
-                Découvrir les Pharmacies Vertes
-                <svg class="ml-3 h-5 w-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
-                </svg>
-              </NuxtLink>
-              <NuxtLink to="/chatbot" class="inline-flex items-center justify-center rounded-2xl border-2 border-nature-300 text-nature-100 px-10 py-5 text-lg font-semibold hover:bg-nature-400/20 backdrop-blur-sm transition-all duration-300">
-                <span class="mr-2 text-2xl">💬</span>
-                Assistant Naturel IA
-              </NuxtLink>
-            </div>
-
-            <!-- Stats with Nature Icons -->
-            <div ref="heroStats" class="flex gap-12 pt-12 opacity-0">
-              <div class="group">
-                <div class="text-5xl font-bold bg-gradient-to-br from-nature-200 to-nature-400 bg-clip-text text-transparent group-hover:scale-110 transition-transform">
-                  250+
-                </div>
-                <div class="text-sm text-nature-200/90 flex items-center gap-1 mt-2">
-                  🌱 Pharmacies vertes
-                </div>
-              </div>
-              <div class="group">
-                <div class="text-5xl font-bold bg-gradient-to-br from-nature-200 to-nature-400 bg-clip-text text-transparent group-hover:scale-110 transition-transform">
-                  5000+
-                </div>
-                <div class="text-sm text-nature-200/90 flex items-center gap-1 mt-2">
-                  🍃 Produits naturels
-                </div>
-              </div>
-              <div class="group">
-                <div class="text-5xl font-bold bg-gradient-to-br from-nature-200 to-nature-400 bg-clip-text text-transparent group-hover:scale-110 transition-transform">
-                  24/7
-                </div>
-                <div class="text-sm text-nature-200/90 flex items-center gap-1 mt-2">
-                  ♻️ Éco-service
-                </div>
-              </div>
+            <!-- Right - Spline Scene -->
+            <div class="flex-1 relative min-h-[400px] lg:min-h-full">
+              <ClientOnly>
+                <SplineScene
+                  scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
+                  class="w-full h-full"
+                />
+                <template #fallback>
+                  <div class="w-full h-full flex items-center justify-center bg-nature-900/50 rounded-lg">
+                    <div class="text-center">
+                      <div class="inline-block mb-4">
+                        <span class="loader"></span>
+                      </div>
+                      <div class="text-nature-100 text-lg">Loading 3D Scene...</div>
+                    </div>
+                  </div>
+                </template>
+              </ClientOnly>
             </div>
           </div>
-        </div>
+        </Card>
 
         <!-- Organic Wave Separator -->
         <div class="absolute bottom-0 left-0 right-0 z-20">
@@ -305,6 +315,8 @@ import NavigationPill from '@/components/ui/NavigationPill.vue'
 import AnimatedTestimonials from '@/components/ui/AnimatedTestimonials.vue'
 import SplineScene from '@/components/ui/SplineScene.vue'
 import ContainerScroll from '@/components/ui/ContainerScroll.vue'
+import Card from '@/components/ui/Card.vue'
+import Spotlight from '@/components/ui/Spotlight.vue'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -451,4 +463,25 @@ useHead({
 
 <style scoped>
 /* Initial states for GSAP animations */
+
+/* Loader for Spline Scene */
+.loader {
+  width: 48px;
+  height: 48px;
+  border: 5px solid rgba(134, 239, 172, 0.3);
+  border-bottom-color: #86efac;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 </style>
