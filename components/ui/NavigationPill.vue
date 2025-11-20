@@ -1,7 +1,8 @@
 <template>
   <nav
     ref="containerRef"
-    class="relative rounded-full"
+    class="relative rounded-full transition-all duration-300"
+    :class="{ 'translate-y-[-120px] opacity-0': isHidden }"
     :style="{
       width: `${pillWidth}px`,
       height: '56px',
@@ -54,7 +55,6 @@
           inset 0 0 1px rgba(0, 0, 0, 0.15)
         `,
       overflow: 'hidden',
-      transition: 'all 0.3s ease-out',
     }"
     @mouseenter="handleMouseEnter"
     @mouseleave="handleMouseLeave"
@@ -106,7 +106,7 @@
       <div v-if="!expanded" class="flex items-center relative">
         <Transition name="slide" mode="out-in">
           <span
-            :key="activeSection"
+            :key="activeRoute"
             :style="{
               fontSize: '15.5px',
               fontWeight: 680,
@@ -124,49 +124,55 @@
               `,
             }"
           >
-            {{ navItems.find(item => item.id === activeSection)?.label }}
+            {{ navItems.find(item => item.path === activeRoute)?.label || 'Accueil' }}
           </span>
         </Transition>
       </div>
 
       <!-- Expanded state -->
       <div v-if="expanded" class="flex items-center justify-evenly w-full">
-        <button
-          v-for="(item, index) in navItems"
-          :key="item.id"
-          @click="handleSectionClick(item.id)"
+        <NuxtLink
+          v-for="item in navItems"
+          :key="item.path"
+          :to="item.path"
           class="relative cursor-pointer transition-all duration-200 outline-none"
-          :style="getButtonStyle(item.id === activeSection)"
-          @mouseenter="(e) => handleButtonHover(e, item.id === activeSection)"
-          @mouseleave="(e) => handleButtonLeave(e, item.id === activeSection)"
+          :style="getButtonStyle(item.path === activeRoute)"
+          @mouseenter="(e) => handleButtonHover(e, item.path === activeRoute)"
+          @mouseleave="(e) => handleButtonLeave(e, item.path === activeRoute)"
+          @click="handleNavClick"
         >
           {{ item.label }}
-        </button>
+        </NuxtLink>
       </div>
     </div>
   </nav>
 </template>
 
 <script setup lang="ts">
-import { ref, watch, onMounted, onUnmounted } from 'vue'
+import { ref, watch, onMounted, onUnmounted, computed } from 'vue'
 
 interface NavItem {
   label: string
-  id: string
+  path: string
 }
 
-const activeSection = ref('home')
+const route = useRoute()
+const activeRoute = computed(() => route.path)
 const expanded = ref(false)
 const hovering = ref(false)
 const isTransitioning = ref(false)
-const pillWidth = ref(140)
+const pillWidth = ref(180)
 const containerRef = ref<HTMLElement | null>(null)
+const isHidden = ref(false)
+const lastScrollY = ref(0)
+const scrollThreshold = 100
 
 const navItems: NavItem[] = [
-  { label: 'Home', id: 'home' },
-  { label: 'Problem', id: 'problem' },
-  { label: 'Solution', id: 'solution' },
-  { label: 'Contact', id: 'contact' },
+  { label: 'Accueil', path: '/' },
+  { label: 'Pharmacies', path: '/pharmacies' },
+  { label: 'Produits', path: '/products' },
+  { label: 'Assistant', path: '/chatbot' },
+  { label: 'Connexion', path: '/auth/login' },
 ]
 
 let hoverTimeout: ReturnType<typeof setTimeout> | null = null
@@ -174,14 +180,14 @@ let hoverTimeout: ReturnType<typeof setTimeout> | null = null
 watch(hovering, (newValue) => {
   if (newValue) {
     expanded.value = true
-    pillWidth.value = 580
+    pillWidth.value = 650
     if (hoverTimeout) {
       clearTimeout(hoverTimeout)
     }
   } else {
     hoverTimeout = setTimeout(() => {
       expanded.value = false
-      pillWidth.value = 140
+      pillWidth.value = 180
     }, 600)
   }
 })
@@ -194,9 +200,8 @@ const handleMouseLeave = () => {
   hovering.value = false
 }
 
-const handleSectionClick = (sectionId: string) => {
+const handleNavClick = () => {
   isTransitioning.value = true
-  activeSection.value = sectionId
   hovering.value = false
 
   setTimeout(() => {
@@ -263,9 +268,40 @@ const handleButtonLeave = (e: MouseEvent, isActive: boolean) => {
   }
 }
 
+const handleScroll = () => {
+  if (typeof window === 'undefined') return
+
+  const currentScrollY = window.scrollY
+
+  // Show navbar when scrolling up, hide when scrolling down
+  if (currentScrollY < lastScrollY.value) {
+    // Scrolling up
+    isHidden.value = false
+  } else if (currentScrollY > scrollThreshold && currentScrollY > lastScrollY.value) {
+    // Scrolling down and past threshold
+    isHidden.value = true
+  }
+
+  // Always show at the top
+  if (currentScrollY < scrollThreshold) {
+    isHidden.value = false
+  }
+
+  lastScrollY.value = currentScrollY
+}
+
+onMounted(() => {
+  if (typeof window !== 'undefined') {
+    window.addEventListener('scroll', handleScroll, { passive: true })
+  }
+})
+
 onUnmounted(() => {
   if (hoverTimeout) {
     clearTimeout(hoverTimeout)
+  }
+  if (typeof window !== 'undefined') {
+    window.removeEventListener('scroll', handleScroll)
   }
 })
 </script>
