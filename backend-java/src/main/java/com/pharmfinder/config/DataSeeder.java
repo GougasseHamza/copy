@@ -9,7 +9,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Component
 @RequiredArgsConstructor
@@ -32,8 +32,8 @@ public class DataSeeder implements ApplicationRunner {
                 admin.setRole(UserRole.ADMIN);
                 admin.setPharmacyId(null);
                 admin.setPasswordHash(passwordEncoder.encode("admin123"));
-                admin.setCreatedAt(LocalDateTime.now());
-                admin.setUpdatedAt(LocalDateTime.now());
+                admin.setCreatedAt(new Date());
+                admin.setUpdatedAt(new Date());
                 userRepository.save(admin);
                 System.out.println("✅ Created admin user: admin@pharmfinder.ma / admin123");
             }
@@ -47,8 +47,8 @@ public class DataSeeder implements ApplicationRunner {
                 staff.setRole(UserRole.STAFF);
                 staff.setPharmacyId("1"); // Assigned to Pharmacie Centrale
                 staff.setPasswordHash(passwordEncoder.encode("staff123"));
-                staff.setCreatedAt(LocalDateTime.now());
-                staff.setUpdatedAt(LocalDateTime.now());
+                staff.setCreatedAt(new Date());
+                staff.setUpdatedAt(new Date());
                 userRepository.save(staff);
                 System.out.println("✅ Created staff user: staff@pharmfinder.ma / staff123");
             }
@@ -62,8 +62,8 @@ public class DataSeeder implements ApplicationRunner {
                 customer.setRole(UserRole.CUSTOMER);
                 customer.setPharmacyId(null);
                 customer.setPasswordHash(passwordEncoder.encode("customer123"));
-                customer.setCreatedAt(LocalDateTime.now());
-                customer.setUpdatedAt(LocalDateTime.now());
+                customer.setCreatedAt(new Date());
+                customer.setUpdatedAt(new Date());
                 userRepository.save(customer);
                 System.out.println("✅ Created customer user: customer@example.com / customer123");
             }

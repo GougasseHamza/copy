@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.concurrent.ExecutionException;
 
 @Service
@@ -35,8 +35,8 @@ public class AuthService {
             user.setName(request.getName());
             user.setRole(request.getRole() != null ? request.getRole() : UserRole.CUSTOMER);
             user.setPasswordHash(passwordEncoder.encode(request.getPassword()));
-            user.setCreatedAt(LocalDateTime.now());
-            user.setUpdatedAt(LocalDateTime.now());
+            user.setCreatedAt(new Date());
+            user.setUpdatedAt(new Date());
 
             // Save to Firestore
             user = userRepository.save(user);

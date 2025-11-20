@@ -7,8 +7,7 @@ import com.pharmfinder.model.UserRole;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDateTime;
-import java.time.ZoneId;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -107,15 +106,12 @@ public class UserRepository {
         return user;
     }
 
-    private LocalDateTime convertTimestamp(Object timestamp) {
+    private Date convertTimestamp(Object timestamp) {
         if (timestamp instanceof com.google.cloud.Timestamp) {
-            return LocalDateTime.ofInstant(
-                    ((com.google.cloud.Timestamp) timestamp).toDate().toInstant(),
-                    ZoneId.systemDefault()
-            );
-        } else if (timestamp instanceof LocalDateTime) {
-            return (LocalDateTime) timestamp;
+            return ((com.google.cloud.Timestamp) timestamp).toDate();
+        } else if (timestamp instanceof Date) {
+            return (Date) timestamp;
         }
-        return LocalDateTime.now();
+        return new Date();
     }
 }

@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Data
 @NoArgsConstructor
@@ -17,10 +17,10 @@ public class User {
     private String phone;
     private UserRole role;
     private String pharmacyId;
-    
+
     @JsonIgnore  // Never send password hash to client
     private String passwordHash;
-    
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+
+    private Date createdAt;
+    private Date updatedAt;
 }
