@@ -21,8 +21,21 @@ public class ProductController {
             @RequestParam(required = false) String category,
             @RequestParam(required = false) String search
     ) {
-        // TODO: Implement
-        return ResponseEntity.ok(new ApiResponse<>(true, "Success", null));
+        List<Product> products = productService.getAllProducts();
+        
+        // Filter by category if provided
+        if (category != null && !category.isEmpty()) {
+            products = products.stream()
+                    .filter(p -> p.getCategory() != null && p.getCategory().equalsIgnoreCase(category))
+                    .toList();
+        }
+        
+        // Search if search param provided
+        if (search != null && !search.isEmpty()) {
+            products = productService.searchProducts(search, 100);
+        }
+        
+        return ResponseEntity.ok(new ApiResponse<>(true, "Products retrieved successfully", products));
     }
 
     @GetMapping("/search")
@@ -30,14 +43,17 @@ public class ProductController {
             @RequestParam String query,
             @RequestParam(defaultValue = "10") Integer limit
     ) {
-        // TODO: Implement
-        return ResponseEntity.ok(new ApiResponse<>(true, "Success", null));
+        List<Product> products = productService.searchProducts(query, limit);
+        return ResponseEntity.ok(new ApiResponse<>(true, "Search completed successfully", products));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse<Product>> getProductById(@PathVariable String id) {
-        // TODO: Implement
-        return ResponseEntity.ok(new ApiResponse<>(true, "Success", null));
+        Product product = productService.getProductById(id);
+        if (product == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(new ApiResponse<>(true, "Product retrieved successfully", product));
     }
 
     @GetMapping("/{id}/availability")
@@ -46,7 +62,9 @@ public class ProductController {
             @RequestParam(required = false) Double latitude,
             @RequestParam(required = false) Double longitude
     ) {
-        // TODO: Implement
-        return ResponseEntity.ok(new ApiResponse<>(true, "Success", null));
+        // TODO: Implement availability check logic
+        // For now, return mock response
+        return ResponseEntity.ok(new ApiResponse<>(true, "Availability check completed", 
+                java.util.Map.of("available", true, "pharmacies", java.util.List.of())));
     }
 }
