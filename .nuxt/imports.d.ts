@@ -32,6 +32,7 @@ export { computedAsync, asyncComputed, computedEager, eagerComputed, computedInj
 export { useElementStyle, useElementTransform, useMotion, useMotionProperties, useMotionVariants, useSpring } from '@vueuse/motion';
 export { definePageMeta } from '../node_modules/nuxt/dist/pages/runtime/composables';
 export { defineLazyHydrationComponent } from '#app/composables/lazy-hydration';
+export { useAIAssistant } from '../composables/useAIAssistant';
 export { useApi } from '../composables/useApi';
 export { usePharmacyStore } from '../stores/pharmacyStore';
 export { useProductStore } from '../stores/productStore';

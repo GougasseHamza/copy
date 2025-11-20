@@ -650,7 +650,8 @@ const _inlineRuntimeConfig = {
   },
   "public": {
     "apiBase": "http://localhost:8080/api",
-    "googleMapsApiKey": ""
+    "googleMapsApiKey": "your_google_maps_api_key_here",
+    "n8nWebhookUrl": "https://your-n8n-instance.com/webhook/ai-assistant"
   }
 };
 const envOptions = {

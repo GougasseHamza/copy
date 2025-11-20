@@ -155,6 +155,8 @@ declare module 'nuxt/schema' {
    apiBase: string,
 
    googleMapsApiKey: string,
+
+   n8nWebhookUrl: string,
   }
 }
 declare module 'vue' {
