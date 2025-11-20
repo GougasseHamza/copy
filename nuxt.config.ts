@@ -1,7 +1,13 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
-  
+  vite: {
+    server: {
+      allowedHosts: [
+        '474257558b2c.ngrok-free.app'
+      ]
+    }
+  },
   modules: [
     '@nuxtjs/tailwindcss',
     '@pinia/nuxt',

@@ -34,6 +34,7 @@ export { definePageMeta } from '../node_modules/nuxt/dist/pages/runtime/composab
 export { defineLazyHydrationComponent } from '#app/composables/lazy-hydration';
 export { useAIAssistant } from '../composables/useAIAssistant';
 export { useApi } from '../composables/useApi';
+export { useAuth } from '../composables/useAuth';
 export { usePharmacyStore } from '../stores/pharmacyStore';
 export { useProductStore } from '../stores/productStore';
 export { defineStore, acceptHMRUpdate, usePinia, storeToRefs } from '../node_modules/@pinia/nuxt/dist/runtime/composables';
