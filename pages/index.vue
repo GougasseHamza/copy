@@ -10,10 +10,17 @@
       <section id="home" class="relative overflow-hidden bg-gradient-to-br from-nature-900 via-nature-800 to-earth-900 min-h-screen flex items-center">
         <!-- Spline Scene Background -->
         <div class="absolute inset-0 z-0">
-          <SplineScene
-            scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
-            class="w-full h-full"
-          />
+          <ClientOnly>
+            <SplineScene
+              scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
+              class="w-full h-full"
+            />
+            <template #fallback>
+              <div class="w-full h-full flex items-center justify-center bg-nature-900">
+                <div class="text-nature-100 text-lg">Loading 3D Scene...</div>
+              </div>
+            </template>
+          </ClientOnly>
         </div>
 
         <!-- Green Nature Overlay -->

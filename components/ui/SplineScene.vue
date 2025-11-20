@@ -13,7 +13,6 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
-import { Application } from '@splinetool/runtime'
 
 interface Props {
   scene: string
@@ -23,21 +22,27 @@ interface Props {
 const props = defineProps<Props>()
 
 const splineContainer = ref<HTMLDivElement | null>(null)
-let splineApp: Application | null = null
+let splineApp: any = null
 
 onMounted(async () => {
-  if (splineContainer.value) {
+  // Only load Spline on client side
+  if (typeof window === 'undefined' || !splineContainer.value) return
+
+  try {
+    // Dynamically import Spline runtime only on client
+    const { Application } = await import('@splinetool/runtime')
     splineApp = new Application(splineContainer.value)
-    try {
-      await splineApp.load(props.scene)
-    } catch (error) {
-      console.error('Error loading Spline scene:', error)
-    }
+    await splineApp.load(props.scene)
+  } catch (error) {
+    console.error('Error loading Spline scene:', error)
   }
 })
 
 onUnmounted(() => {
   // Cleanup if needed
+  if (splineApp && typeof splineApp.dispose === 'function') {
+    splineApp.dispose()
+  }
   splineApp = null
 })
 </script>
@@ -46,8 +51,8 @@ onUnmounted(() => {
 .loader {
   width: 48px;
   height: 48px;
-  border: 5px solid #FFF;
-  border-bottom-color: transparent;
+  border: 5px solid rgba(134, 239, 172, 0.3);
+  border-bottom-color: #86efac;
   border-radius: 50%;
   display: inline-block;
   box-sizing: border-box;
