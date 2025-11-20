@@ -16,16 +16,16 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .cors()
-                .and()
-                .csrf().disable()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .authorizeHttpRequests()
-                .requestMatchers("/api/auth/**", "/api/pharmacies/**", "/api/products/**").permitAll()
-                .requestMatchers("/api/staff/**", "/api/inventory/**").authenticated()
-                .anyRequest().permitAll();
+                .cors(cors -> cors.configure(http))
+                .csrf(csrf -> csrf.disable())
+                .sessionManagement(session -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                )
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/api/auth/**", "/api/pharmacies/**", "/api/products/**").permitAll()
+                        .requestMatchers("/api/staff/**", "/api/inventory/**").authenticated()
+                        .anyRequest().permitAll()
+                );
 
         return http.build();
     }
