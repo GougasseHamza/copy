@@ -43,7 +43,15 @@
 
       <!-- Error State -->
       <div v-else-if="error" class="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded mb-6">
-        {{ error }}
+        <div class="flex items-center justify-between">
+          <span>{{ error }}</span>
+          <button
+            @click="retryFetch"
+            class="ml-4 px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 text-sm"
+          >
+            Retry
+          </button>
+        </div>
       </div>
 
       <!-- Success Message -->
@@ -176,7 +184,15 @@ const fetchProducts = async () => {
     }
   } catch (err: any) {
     console.error('Products fetch error:', err)
-    error.value = err.data?.message || 'Failed to load products'
+
+    // Provide helpful error message based on error type
+    if (!err.status) {
+      error.value = 'Cannot connect to backend server. Please ensure the Spring Boot backend is running on port 8080.'
+    } else if (err.status === 401 || err.status === 403) {
+      error.value = 'Authentication failed. Please try logging in again.'
+    } else {
+      error.value = err.data?.message || 'Failed to load products'
+    }
   } finally {
     loading.value = false
   }
@@ -263,6 +279,10 @@ const addToInventory = async (productId: string) => {
   } finally {
     updatingProducts.value.delete(productId)
   }
+}
+
+const retryFetch = async () => {
+  await Promise.all([fetchProducts(), fetchInventory()])
 }
 
 const handleSearch = () => {

@@ -24,7 +24,15 @@
 
       <!-- Error State -->
       <div v-else-if="error" class="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded mb-6">
-        {{ error }}
+        <div class="flex items-center justify-between">
+          <span>{{ error }}</span>
+          <button
+            @click="fetchDashboard"
+            class="ml-4 px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 text-sm"
+          >
+            Retry
+          </button>
+        </div>
       </div>
 
       <!-- Dashboard Content -->
@@ -177,11 +185,18 @@ const fetchDashboard = async () => {
     }
   } catch (err: any) {
     console.error('Dashboard fetch error:', err)
-    error.value = err.data?.message || 'Failed to load dashboard data'
 
-    // If unauthorized, redirect to login
-    if (err.status === 401 || err.status === 403) {
+    // Check if it's a network/connection error vs authentication error
+    if (err.status === 401) {
+      // Only logout on explicit 401 Unauthorized
+      error.value = 'Session expired. Please login again.'
       await logout()
+    } else if (err.status === 403) {
+      // 403 might be auth issue, but could also be CORS or other issues
+      error.value = 'Access denied. Your session may have expired.'
+    } else {
+      // Network or other errors - don't logout
+      error.value = 'Cannot connect to server. Please check if the backend is running on port 8080.'
     }
   } finally {
     loading.value = false
