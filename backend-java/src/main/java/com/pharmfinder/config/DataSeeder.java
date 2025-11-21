@@ -22,18 +22,18 @@ public class DataSeeder implements ApplicationRunner {
         System.out.println("🌱 Seeding demo staff users to Firestore...");
 
         try {
-            // Create demo staff for Pharmacie Centrale
-            if (!userRepository.existsByEmail("staff1@pharmfinder.ma")) {
-                User staff1 = new User();
-                staff1.setEmail("staff1@pharmfinder.ma");
-                staff1.setName("Ahmed Bennani");
-                staff1.setPhone("+212 600 000 001");
-                staff1.setPharmacyName("Pharmacie Centrale");
-                staff1.setPasswordHash(passwordEncoder.encode("staff123"));
-                staff1.setCreatedAt(new Date());
-                staff1.setUpdatedAt(new Date());
-                userRepository.save(staff1);
-                System.out.println("✅ Created staff: staff1@pharmfinder.ma / staff123 (Pharmacie Centrale)");
+            // Create main demo staff
+            if (!userRepository.existsByEmail("staff@pharmfinder.ma")) {
+                User staff = new User();
+                staff.setEmail("staff@pharmfinder.ma");
+                staff.setName("Ahmed Bennani");
+                staff.setPhone("+212 600 000 001");
+                staff.setPharmacyName("Pharmacie Centrale");
+                staff.setPasswordHash(passwordEncoder.encode("staff123"));
+                staff.setCreatedAt(new Date());
+                staff.setUpdatedAt(new Date());
+                userRepository.save(staff);
+                System.out.println("✅ Created staff: staff@pharmfinder.ma / staff123 (Pharmacie Centrale)");
             }
 
             // Create demo staff for Pharmacie du Centre

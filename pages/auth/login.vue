@@ -81,11 +81,10 @@
           </div>
 
           <div class="mt-6 text-center text-sm text-gray-600">
-            <p>Demo accounts:</p>
+            <p>Demo account:</p>
             <div class="mt-2 space-y-1 text-xs">
-              <p>Admin: admin@pharmfinder.ma / admin123</p>
-              <p>Staff: staff@pharmfinder.ma / staff123</p>
-              <p>Customer: customer@example.com / customer123</p>
+              <p class="font-medium">staff@pharmfinder.ma / staff123</p>
+              <p class="text-gray-500">(Pharmacie Centrale)</p>
             </div>
           </div>
         </form>
@@ -115,12 +114,8 @@ const handleLogin = async () => {
     })
 
     if (result.success) {
-      // Redirect based on role
-      if (result.data?.role === 'STAFF' || result.data?.role === 'ADMIN') {
-        router.push('/staff')
-      } else {
-        router.push('/')
-      }
+      // All users are staff, redirect to staff dashboard
+      router.push('/staff')
     } else {
       error.value = result.message || 'Login failed'
     }
