@@ -64,6 +64,22 @@
             </div>
 
             <div>
+              <label for="pharmacyName" class="block text-sm font-medium text-gray-700">Pharmacy Name</label>
+              <input
+                id="pharmacyName"
+                v-model="pharmacyName"
+                name="pharmacyName"
+                type="text"
+                required
+                class="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
+                placeholder="Pharmacie Centrale"
+              />
+              <p class="mt-1 text-xs text-gray-500">
+                Enter the name of the pharmacy you manage
+              </p>
+            </div>
+
+            <div>
               <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
               <input
                 id="password"
@@ -89,21 +105,6 @@
                 class="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
                 placeholder="••••••••"
               />
-            </div>
-
-            <div>
-              <label for="role" class="block text-sm font-medium text-gray-700">Account Type</label>
-              <select
-                id="role"
-                v-model="role"
-                class="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
-              >
-                <option value="CUSTOMER">Customer</option>
-                <option value="STAFF">Staff (Pharmacy)</option>
-              </select>
-              <p class="mt-1 text-xs text-gray-500">
-                Choose "Staff" if you manage a pharmacy
-              </p>
             </div>
           </div>
 
@@ -144,9 +145,9 @@ const router = useRouter()
 const name = ref('')
 const email = ref('')
 const phone = ref('')
+const pharmacyName = ref('')
 const password = ref('')
 const confirmPassword = ref('')
-const role = ref<'CUSTOMER' | 'STAFF'>('CUSTOMER')
 const acceptTerms = ref(false)
 const loading = ref(false)
 const error = ref('')
@@ -182,19 +183,15 @@ const handleRegister = async () => {
       password: password.value,
       name: name.value,
       phone: phone.value || undefined,
-      role: role.value
+      pharmacyName: pharmacyName.value
     })
 
     if (result.success) {
       success.value = 'Account created successfully! Redirecting...'
 
-      // Redirect based on role after 1 second
+      // Redirect to staff dashboard after 1 second
       setTimeout(() => {
-        if (result.data?.role === 'STAFF' || result.data?.role === 'ADMIN') {
-          router.push('/staff')
-        } else {
-          router.push('/')
-        }
+        router.push('/staff')
       }, 1000)
     } else {
       error.value = result.message || 'Registration failed'
