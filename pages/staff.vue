@@ -149,21 +149,15 @@
 </template>
 
 <script setup lang="ts">
-const { user, isAuthenticated, logout, getAuthHeaders } = useAuth()
+const { user, logout, getAuthHeaders } = useAuth()
 const config = useRuntimeConfig()
-const router = useRouter()
 
 const loading = ref(true)
 const error = ref('')
 const dashboardData = ref<any>(null)
 
-// Protect route - redirect if not authenticated
+// Fetch dashboard on mount (middleware protects the route)
 onMounted(async () => {
-  if (!isAuthenticated.value) {
-    router.push('/auth/login')
-    return
-  }
-
   await fetchDashboard()
 })
 
