@@ -8,14 +8,14 @@ interface RegisterRequest {
   password: string
   name: string
   phone?: string
-  role?: 'CUSTOMER' | 'STAFF' | 'ADMIN'
+  pharmacyName: string  // Pharmacy they manage
 }
 
 interface AuthResponse {
-  id: string
+  userId: string
   email: string
   name: string
-  role: 'CUSTOMER' | 'STAFF' | 'ADMIN'
+  pharmacyName: string
   token: string
 }
 
@@ -24,8 +24,7 @@ interface User {
   email: string
   name: string
   phone?: string
-  role: 'CUSTOMER' | 'STAFF' | 'ADMIN'
-  pharmacyId?: string
+  pharmacyName: string
   createdAt: string
   updatedAt: string
 }
@@ -52,8 +51,6 @@ export const useAuth = () => {
   })
 
   const isAuthenticated = computed(() => !!token.value)
-  const isStaff = computed(() => user.value?.role === 'STAFF' || user.value?.role === 'ADMIN')
-  const isAdmin = computed(() => user.value?.role === 'ADMIN')
 
   // Login
   const login = async (credentials: LoginRequest) => {
@@ -67,10 +64,10 @@ export const useAuth = () => {
         const authData: AuthResponse = response.data
         token.value = authData.token
         user.value = {
-          id: authData.id,
+          id: authData.userId,
           email: authData.email,
           name: authData.name,
-          role: authData.role,
+          pharmacyName: authData.pharmacyName,
           createdAt: new Date().toISOString(),
           updatedAt: new Date().toISOString()
         }
@@ -106,10 +103,10 @@ export const useAuth = () => {
         const authData: AuthResponse = response.data
         token.value = authData.token
         user.value = {
-          id: authData.id,
+          id: authData.userId,
           email: authData.email,
           name: authData.name,
-          role: authData.role,
+          pharmacyName: authData.pharmacyName,
           createdAt: new Date().toISOString(),
           updatedAt: new Date().toISOString()
         }
@@ -214,8 +211,6 @@ export const useAuth = () => {
     token: readonly(token),
     user: readonly(user),
     isAuthenticated,
-    isStaff,
-    isAdmin,
 
     // Methods
     login,
