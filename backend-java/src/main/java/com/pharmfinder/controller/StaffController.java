@@ -102,7 +102,7 @@ public class StaffController {
 
             // Create new inventory entry (initially available)
             Inventory inventory = new Inventory();
-            inventory.setPharmacyId(user.getPharmacyName());
+            inventory.setPharmacyName(user.getPharmacyName());
             inventory.setProductId(productId);
             inventory.setAvailable(true);  // Initially available
             inventory.setLastUpdated(new Date());

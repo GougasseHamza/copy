@@ -22,7 +22,7 @@ public class InventoryRepository {
 
     public Inventory save(Inventory inventory) throws ExecutionException, InterruptedException {
         Map<String, Object> data = new HashMap<>();
-        data.put("pharmacyId", inventory.getPharmacyId());
+        data.put("pharmacyName", inventory.getPharmacyName());
         data.put("productId", inventory.getProductId());
         data.put("available", inventory.isAvailable());
         data.put("lastUpdated", inventory.getLastUpdated());
@@ -41,9 +41,9 @@ public class InventoryRepository {
         return inventory;
     }
 
-    public Inventory findByPharmacyAndProduct(String pharmacyId, String productId) throws ExecutionException, InterruptedException {
+    public Inventory findByPharmacyAndProduct(String pharmacyName, String productId) throws ExecutionException, InterruptedException {
         var query = firestore.collection(COLLECTION_NAME)
-                .whereEqualTo("pharmacyId", pharmacyId)
+                .whereEqualTo("pharmacyName", pharmacyName)
                 .whereEqualTo("productId", productId)
                 .limit(1)
                 .get()
@@ -56,9 +56,9 @@ public class InventoryRepository {
         return documentToInventory(query.getDocuments().get(0));
     }
 
-    public List<Inventory> findByPharmacy(String pharmacyId) throws ExecutionException, InterruptedException {
+    public List<Inventory> findByPharmacy(String pharmacyName) throws ExecutionException, InterruptedException {
         var query = firestore.collection(COLLECTION_NAME)
-                .whereEqualTo("pharmacyId", pharmacyId)
+                .whereEqualTo("pharmacyName", pharmacyName)
                 .get()
                 .get();
 
@@ -108,7 +108,7 @@ public class InventoryRepository {
 
         Inventory inventory = new Inventory();
         inventory.setId((String) data.get("id"));
-        inventory.setPharmacyId((String) data.get("pharmacyId"));
+        inventory.setPharmacyName((String) data.get("pharmacyName"));
         inventory.setProductId((String) data.get("productId"));
         inventory.setAvailable(data.get("available") != null && (Boolean) data.get("available"));
         inventory.setUpdatedByUserId((String) data.get("updatedByUserId"));

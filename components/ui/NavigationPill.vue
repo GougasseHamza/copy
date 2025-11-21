@@ -124,7 +124,7 @@
               `,
             }"
           >
-            {{ navItems.find(item => item.path === activeRoute)?.label || 'Accueil' }}
+            {{ navItems.value.find(item => item.path === activeRoute)?.label || 'Accueil' }}
           </span>
         </Transition>
       </div>
@@ -157,6 +157,7 @@ interface NavItem {
 }
 
 const route = useRoute()
+const { isAuthenticated } = useAuth()
 const activeRoute = computed(() => route.path)
 const expanded = ref(false)
 const hovering = ref(false)
@@ -167,13 +168,24 @@ const isHidden = ref(false)
 const lastScrollY = ref(0)
 const scrollThreshold = 100
 
-const navItems: NavItem[] = [
-  { label: 'Accueil', path: '/' },
-  { label: 'Pharmacies', path: '/pharmacies' },
-  { label: 'Produits', path: '/products' },
-  { label: 'Assistant', path: '/chatbot' },
-  { label: 'Connexion', path: '/auth/login' },
-]
+// Dynamic nav items based on authentication state
+const navItems = computed<NavItem[]>(() => {
+  const baseItems: NavItem[] = [
+    { label: 'Accueil', path: '/' },
+    { label: 'Pharmacies', path: '/pharmacies' },
+    { label: 'Produits', path: '/products' },
+    { label: 'Assistant', path: '/chatbot' },
+  ]
+
+  // Show Dashboard if authenticated, otherwise show Connexion
+  if (isAuthenticated.value) {
+    baseItems.push({ label: 'Dashboard', path: '/staff' })
+  } else {
+    baseItems.push({ label: 'Connexion', path: '/auth/login' })
+  }
+
+  return baseItems
+})
 
 let hoverTimeout: ReturnType<typeof setTimeout> | null = null
 

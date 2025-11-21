@@ -11,7 +11,7 @@ import java.util.Date;
 @AllArgsConstructor
 public class Inventory {
     private String id;
-    private String pharmacyId;
+    private String pharmacyName;  // Changed from pharmacyId to pharmacyName
     private String productId;
     private boolean available;  // Simple toggle: available or not
     private Date lastUpdated;
