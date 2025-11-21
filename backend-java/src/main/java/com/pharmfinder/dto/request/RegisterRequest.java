@@ -1,6 +1,5 @@
 package com.pharmfinder.dto.request;
 
-import com.pharmfinder.model.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,5 +11,6 @@ public class RegisterRequest {
     private String email;
     private String password;
     private String name;
-    private UserRole role;
+    private String phone;
+    private String pharmacyName;  // Pharmacy they manage
 }

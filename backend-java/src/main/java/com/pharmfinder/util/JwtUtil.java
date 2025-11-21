@@ -1,6 +1,5 @@
 package com.pharmfinder.util;
 
-import com.pharmfinder.model.UserRole;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -20,11 +19,10 @@ public class JwtUtil {
     private final SecretKey secretKey = Keys.hmacShaKeyFor(SECRET.getBytes(StandardCharsets.UTF_8));
     private final long JWT_EXPIRATION = 86400000; // 24 hours
 
-    public String generateToken(String userId, String email, UserRole role) {
+    public String generateToken(String userId, String email) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("userId", userId);
         claims.put("email", email);
-        claims.put("role", role.name());
 
         return Jwts.builder()
                 .claims(claims)
@@ -49,11 +47,6 @@ public class JwtUtil {
 
     public String extractEmail(String token) {
         return extractClaims(token).getSubject();
-    }
-
-    public UserRole extractRole(String token) {
-        String role = extractClaims(token).get("role", String.class);
-        return UserRole.valueOf(role);
     }
 
     public boolean isTokenExpired(String token) {

@@ -3,7 +3,6 @@ package com.pharmfinder.repository;
 import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.QueryDocumentSnapshot;
 import com.pharmfinder.model.User;
-import com.pharmfinder.model.UserRole;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -24,8 +23,7 @@ public class UserRepository {
         userData.put("email", user.getEmail());
         userData.put("name", user.getName());
         userData.put("phone", user.getPhone());
-        userData.put("role", user.getRole().name());
-        userData.put("pharmacyId", user.getPharmacyId());
+        userData.put("pharmacyName", user.getPharmacyName());
         userData.put("passwordHash", user.getPasswordHash());
         userData.put("createdAt", user.getCreatedAt());
         userData.put("updatedAt", user.getUpdatedAt());
@@ -91,8 +89,7 @@ public class UserRepository {
         user.setEmail((String) data.get("email"));
         user.setName((String) data.get("name"));
         user.setPhone((String) data.get("phone"));
-        user.setRole(UserRole.valueOf((String) data.get("role")));
-        user.setPharmacyId((String) data.get("pharmacyId"));
+        user.setPharmacyName((String) data.get("pharmacyName"));
         user.setPasswordHash((String) data.get("passwordHash"));
 
         // Handle timestamps

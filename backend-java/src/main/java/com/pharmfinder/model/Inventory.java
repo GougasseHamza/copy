@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Data
 @NoArgsConstructor
@@ -13,8 +13,7 @@ public class Inventory {
     private String id;
     private String pharmacyId;
     private String productId;
-    private Integer quantity;
-    private Integer minStockLevel;
-    private LocalDateTime lastUpdated;
-    private String lastUpdatedBy;
+    private boolean available;  // Simple toggle: available or not
+    private Date lastUpdated;
+    private String updatedByUserId;
 }

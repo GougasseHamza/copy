@@ -15,8 +15,7 @@ public class User {
     private String email;
     private String name;
     private String phone;
-    private UserRole role;
-    private String pharmacyId;
+    private String pharmacyName;  // Name of pharmacy they manage
 
     @JsonIgnore  // Never send password hash to client
     private String passwordHash;

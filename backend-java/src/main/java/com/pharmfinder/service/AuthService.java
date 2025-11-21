@@ -4,7 +4,6 @@ import com.pharmfinder.dto.request.LoginRequest;
 import com.pharmfinder.dto.request.RegisterRequest;
 import com.pharmfinder.dto.response.AuthResponse;
 import com.pharmfinder.model.User;
-import com.pharmfinder.model.UserRole;
 import com.pharmfinder.repository.UserRepository;
 import com.pharmfinder.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
@@ -29,11 +28,12 @@ public class AuthService {
                 throw new RuntimeException("User already exists");
             }
 
-            // Create new user
+            // Create new user (staff)
             User user = new User();
             user.setEmail(request.getEmail());
             user.setName(request.getName());
-            user.setRole(request.getRole() != null ? request.getRole() : UserRole.CUSTOMER);
+            user.setPhone(request.getPhone());
+            user.setPharmacyName(request.getPharmacyName());
             user.setPasswordHash(passwordEncoder.encode(request.getPassword()));
             user.setCreatedAt(new Date());
             user.setUpdatedAt(new Date());
@@ -42,13 +42,13 @@ public class AuthService {
             user = userRepository.save(user);
 
             // Generate token
-            String token = jwtUtil.generateToken(user.getId(), user.getEmail(), user.getRole());
+            String token = jwtUtil.generateToken(user.getId(), user.getEmail());
 
             return new AuthResponse(
                     user.getId(),
                     user.getEmail(),
                     user.getName(),
-                    user.getRole(),
+                    user.getPharmacyName(),
                     token
             );
         } catch (ExecutionException | InterruptedException e) {
@@ -70,13 +70,13 @@ public class AuthService {
             }
 
             // Generate token
-            String token = jwtUtil.generateToken(user.getId(), user.getEmail(), user.getRole());
+            String token = jwtUtil.generateToken(user.getId(), user.getEmail());
 
             return new AuthResponse(
                     user.getId(),
                     user.getEmail(),
                     user.getName(),
-                    user.getRole(),
+                    user.getPharmacyName(),
                     token
             );
         } catch (ExecutionException | InterruptedException e) {
