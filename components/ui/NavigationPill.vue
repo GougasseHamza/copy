@@ -124,7 +124,7 @@
               `,
             }"
           >
-            {{ navItems.value.find(item => item.path === activeRoute)?.label || 'Accueil' }}
+            {{ navItems.find(item => item.path === activeRoute)?.label || 'Accueil' }}
           </span>
         </Transition>
       </div>
