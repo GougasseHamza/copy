@@ -278,31 +278,13 @@
           </div>
 
           <!-- Map View -->
-          <div v-else class="bg-gradient-to-br from-beige-50 to-earth-50 dark:from-beige-900 dark:to-earth-900 rounded-2xl border-2 border-beige-200 dark:border-beige-700 overflow-hidden shadow-xl" style="height: 600px;">
-            <div class="w-full h-full flex items-center justify-center relative">
-              <!-- Animated background -->
-              <div class="absolute inset-0 opacity-10">
-                <div class="absolute top-10 left-10 w-32 h-32 bg-earth-400 rounded-full blur-3xl animate-pulse"></div>
-                <div class="absolute bottom-10 right-10 w-40 h-40 bg-beige-400 rounded-full blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
-              </div>
-
-              <div class="text-center relative z-10">
-                <div class="mb-6 relative">
-                  <div class="absolute inset-0 bg-earth-500/20 blur-2xl rounded-full"></div>
-                  <svg class="h-24 w-24 mx-auto text-earth-500 dark:text-earth-400 relative" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path>
-                  </svg>
-                </div>
-                <h3 class="text-2xl font-bold text-beige-900 dark:text-beige-50 mb-2">🗺️ Carte Interactive</h3>
-                <p class="text-beige-600 dark:text-beige-300 mb-1">Intégration Google Maps</p>
-                <p class="text-sm text-beige-500 dark:text-beige-400">En cours de développement...</p>
-                <div class="mt-6 flex items-center justify-center gap-2">
-                  <div class="w-2 h-2 bg-earth-500 rounded-full animate-bounce"></div>
-                  <div class="w-2 h-2 bg-earth-500 rounded-full animate-bounce" style="animation-delay: 0.2s;"></div>
-                  <div class="w-2 h-2 bg-earth-500 rounded-full animate-bounce" style="animation-delay: 0.4s;"></div>
-                </div>
-              </div>
-            </div>
+          <div v-else class="rounded-2xl border-2 border-beige-200 dark:border-beige-700 overflow-hidden shadow-xl" style="height: 600px;">
+            <GoogleMap
+              :pharmacies="filteredPharmacies"
+              :selected-pharmacy="selectedPharmacy"
+              @select-pharmacy="selectPharmacy"
+              @update:user-location="handleUserLocation"
+            />
           </div>
         </div>
 
@@ -503,6 +485,11 @@ const getDirections = (pharmacy: Pharmacy) => {
     const url = `https://www.google.com/maps/dir/?api=1&destination=${pharmacy.latitude},${pharmacy.longitude}`
     window.open(url, '_blank')
   }
+}
+
+const handleUserLocation = (location: { lat: number; lng: number }) => {
+  console.log('User location updated:', location)
+  // You can use this to recalculate distances or sort by proximity
 }
 
 useHead({
