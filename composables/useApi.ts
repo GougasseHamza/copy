@@ -2,10 +2,43 @@ export const useApi = () => {
   const config = useRuntimeConfig()
   const baseURL = config.public.apiBase
 
+  // Helper function to transform pharmacy data from backend format to frontend format
+  const transformPharmacy = (pharmacy: any) => {
+    if (!pharmacy) return pharmacy
+
+    // Flatten location object to root level
+    return {
+      ...pharmacy,
+      latitude: pharmacy.location?.latitude,
+      longitude: pharmacy.location?.longitude,
+      image: pharmacy.imageUrl, // Also map imageUrl to image for compatibility
+    }
+  }
+
+  const transformPharmacies = (response: any) => {
+    if (!response) return response
+
+    // Handle ApiResponse wrapper
+    if (response.data && Array.isArray(response.data)) {
+      return {
+        ...response,
+        data: response.data.map(transformPharmacy)
+      }
+    }
+
+    // Handle direct array response
+    if (Array.isArray(response)) {
+      return response.map(transformPharmacy)
+    }
+
+    return response
+  }
+
   // Products/Medicines API
   const fetchPharmacies = async (params?: any) => {
     try {
-      return await $fetch(`${baseURL}/pharmacies`, { params })
+      const response = await $fetch(`${baseURL}/pharmacies`, { params })
+      return transformPharmacies(response)
     } catch (error) {
       console.error('Error fetching pharmacies:', error)
       throw error
@@ -14,9 +47,10 @@ export const useApi = () => {
 
   const getNearbyPharmacies = async (lat: number, lon: number, radius: number = 5000) => {
     try {
-      return await $fetch(`${baseURL}/pharmacies/nearby`, {
+      const response = await $fetch(`${baseURL}/pharmacies/nearby`, {
         params: { latitude: lat, longitude: lon, radius }
       })
+      return transformPharmacies(response)
     } catch (error) {
       console.error('Error fetching nearby pharmacies:', error)
       throw error
@@ -25,7 +59,8 @@ export const useApi = () => {
 
   const getPharmacyById = async (id: string) => {
     try {
-      return await $fetch(`${baseURL}/pharmacies/${id}`)
+      const response = await $fetch(`${baseURL}/pharmacies/${id}`)
+      return transformPharmacy(response)
     } catch (error) {
       console.error('Error fetching pharmacy:', error)
       throw error
