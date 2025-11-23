@@ -123,8 +123,17 @@ const updateMarkers = () => {
 
   // Add new markers
   props.pharmacies.forEach(pharmacy => {
+    // Validate coordinates - skip if invalid
+    const lat = parseFloat(pharmacy.latitude)
+    const lng = parseFloat(pharmacy.longitude)
+
+    if (isNaN(lat) || isNaN(lng) || lat < -90 || lat > 90 || lng < -180 || lng > 180) {
+      console.warn(`Invalid coordinates for pharmacy ${pharmacy.name}:`, { lat: pharmacy.latitude, lng: pharmacy.longitude })
+      return
+    }
+
     const marker = new google.maps.Marker({
-      position: { lat: pharmacy.latitude, lng: pharmacy.longitude },
+      position: { lat, lng },
       map: map.value,
       title: pharmacy.name,
       icon: {
