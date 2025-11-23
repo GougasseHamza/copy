@@ -9,8 +9,18 @@ export const useGoogleMaps = () => {
 
   const loadGoogleMaps = (): Promise<void> => {
     return new Promise((resolve, reject) => {
+      // Check if API key exists
+      const apiKey = config.public.googleMapsApiKey
+      console.log('Google Maps API Key:', apiKey ? `${apiKey.substring(0, 10)}...` : 'MISSING')
+
+      if (!apiKey) {
+        reject(new Error('Google Maps API key is missing. Please add GOOGLE_MAPS_API_KEY to your .env file'))
+        return
+      }
+
       // If already loaded, resolve immediately
       if (window.google && window.google.maps) {
+        console.log('Google Maps already loaded')
         isLoaded.value = true
         resolve()
         return
@@ -18,6 +28,7 @@ export const useGoogleMaps = () => {
 
       // If already loading, wait for it
       if (isLoading.value) {
+        console.log('Google Maps is already loading, waiting...')
         const checkInterval = setInterval(() => {
           if (window.google && window.google.maps) {
             clearInterval(checkInterval)
@@ -29,22 +40,25 @@ export const useGoogleMaps = () => {
       }
 
       isLoading.value = true
+      console.log('Loading Google Maps script...')
 
       // Create script element
       const script = document.createElement('script')
-      script.src = `https://maps.googleapis.com/maps/api/js?key=${config.public.googleMapsApiKey}&libraries=places,geometry`
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places,geometry`
       script.async = true
       script.defer = true
 
       script.onload = () => {
+        console.log('Google Maps script loaded successfully')
         isLoaded.value = true
         isLoading.value = false
         resolve()
       }
 
       script.onerror = (error) => {
+        console.error('Google Maps script failed to load:', error)
         isLoading.value = false
-        reject(new Error('Failed to load Google Maps script'))
+        reject(new Error('Failed to load Google Maps. Check your API key and billing settings.'))
       }
 
       document.head.appendChild(script)
