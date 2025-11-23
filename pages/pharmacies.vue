@@ -135,6 +135,25 @@
               Plus proches
             </div>
           </button>
+
+          <!-- Distance Radius Filter -->
+          <select
+            v-model="maxDistance"
+            :disabled="!userLocation"
+            :class="[
+              'px-5 py-2.5 rounded-xl border-2 transition-all duration-300 font-medium cursor-pointer',
+              maxDistance > 0
+                ? 'bg-nature-600 text-white border-nature-600 shadow-lg shadow-nature-600/30'
+                : 'border-beige-300 dark:border-beige-600 hover:border-nature-400 hover:bg-nature-50 dark:hover:bg-nature-900/30',
+              !userLocation ? 'opacity-50 cursor-not-allowed' : ''
+            ]"
+          >
+            <option value="0">Toutes distances</option>
+            <option value="2">Dans 2 km</option>
+            <option value="5">Dans 5 km</option>
+            <option value="10">Dans 10 km</option>
+            <option value="20">Dans 20 km</option>
+          </select>
         </div>
       </div>
 
@@ -371,6 +390,7 @@ const viewMode = ref<'list' | 'map'>('list')
 const filterOpen = ref(true)
 const minRating = ref(0)
 const sortByDistance = ref(false)
+const maxDistance = ref(0) // 0 = no limit, in kilometers
 const favorites = ref<string[]>([])
 const selectedPharmacy = ref<Pharmacy | null>(null)
 const headerSection = ref<HTMLElement | null>(null)
@@ -453,6 +473,11 @@ const filteredPharmacies = computed(() => {
     filtered = filtered.filter(p => p.rating >= minRating.value)
   }
 
+  // Filter by distance radius
+  if (maxDistance.value > 0 && userLocation.value) {
+    filtered = filtered.filter(p => p.distance && p.distance <= maxDistance.value)
+  }
+
   if (sortByDistance.value) {
     filtered = filtered.sort((a, b) => (a.distance || 0) - (b.distance || 0))
   }
@@ -487,9 +512,41 @@ const getDirections = (pharmacy: Pharmacy) => {
   }
 }
 
+const userLocation = ref<{ lat: number; lng: number } | null>(null)
+
 const handleUserLocation = (location: { lat: number; lng: number }) => {
   console.log('User location updated:', location)
-  // You can use this to recalculate distances or sort by proximity
+  userLocation.value = location
+
+  // Calculate distances for all pharmacies
+  if (location) {
+    pharmacies.value.forEach(pharmacy => {
+      const distance = calculateDistance(
+        location.lat,
+        location.lng,
+        pharmacy.latitude,
+        pharmacy.longitude
+      )
+      pharmacy.distance = parseFloat((distance / 1000).toFixed(1)) // Convert to km
+    })
+  }
+}
+
+// Calculate distance between two coordinates (Haversine formula)
+const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: number): number => {
+  const R = 6371e3 // Earth's radius in meters
+  const φ1 = (lat1 * Math.PI) / 180
+  const φ2 = (lat2 * Math.PI) / 180
+  const Δφ = ((lat2 - lat1) * Math.PI) / 180
+  const Δλ = ((lon2 - lon1) * Math.PI) / 180
+
+  const a =
+    Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
+    Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ / 2) * Math.sin(Δλ / 2)
+
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+
+  return R * c // Distance in meters
 }
 
 useHead({
