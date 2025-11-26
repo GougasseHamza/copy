@@ -56,6 +56,7 @@ module.exports = {
           700: 'hsl(var(--nature-700))',
           800: 'hsl(var(--nature-800))',
           900: 'hsl(var(--nature-900))',
+          950: 'hsl(var(--nature-950))',
         },
         earth: {
           50: 'hsl(var(--earth-50))',
