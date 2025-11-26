@@ -249,7 +249,7 @@ onMounted(() => {
 
 <style scoped>
 .assistant-page {
-  @apply min-h-screen flex flex-col bg-gradient-to-br from-beige-50 via-white to-nature-50 dark:from-beige-950 dark:via-beige-900 dark:to-nature-950;
+  @apply min-h-screen flex flex-col bg-gradient-to-br from-beige-50 via-white to-nature-50 dark:from-gray-900 dark:via-beige-900 dark:to-nature-900;
 }
 
 /* Header */
