@@ -174,7 +174,7 @@ const navItems = computed<NavItem[]>(() => {
     { label: 'Accueil', path: '/' },
     { label: 'Pharmacies', path: '/pharmacies' },
     { label: 'Produits', path: '/products' },
-    { label: 'Assistant', path: '/chatbot' },
+    { label: 'Assistant', path: '/assistant' },
   ]
 
   // Show Dashboard if authenticated, otherwise show Connexion

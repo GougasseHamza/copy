@@ -25,7 +25,7 @@
             <ul class="space-y-2 text-sm text-muted-foreground">
               <li><NuxtLink to="/pharmacies" class="hover:text-primary">Pharmacies</NuxtLink></li>
               <li><NuxtLink to="/products" class="hover:text-primary">Produits</NuxtLink></li>
-              <li><NuxtLink to="/chatbot" class="hover:text-primary">Assistant</NuxtLink></li>
+              <li><NuxtLink to="/assistant" class="hover:text-primary">Assistant</NuxtLink></li>
             </ul>
           </div>
           <div>
