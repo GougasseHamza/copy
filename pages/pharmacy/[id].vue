@@ -26,102 +26,132 @@
     </div>
 
     <!-- Pharmacy Detail -->
-    <div v-else-if="pharmacy" class="min-h-screen bg-gradient-to-br from-beige-50 via-white to-nature-50/30 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
-      <!-- Pharmacy Header -->
-      <section class="relative py-12 overflow-hidden bg-gradient-to-br from-nature-700 via-earth-600 to-beige-700">
-        <div class="container-custom relative z-10">
-          <div class="grid md:grid-cols-3 gap-8 items-start">
-            <!-- Pharmacy Image -->
-            <div class="md:col-span-1">
-              <div class="rounded-2xl overflow-hidden shadow-2xl">
-                <img
-                  v-if="pharmacy.image"
-                  :src="pharmacy.image"
-                  :alt="pharmacy.name"
-                  class="w-full h-64 object-cover"
-                />
-                <div v-else class="w-full h-64 bg-beige-200 dark:bg-beige-700 flex items-center justify-center">
-                  <svg class="w-24 h-24 text-beige-400 dark:text-beige-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
-                  </svg>
+    <div v-else-if="pharmacy" class="min-h-screen bg-gradient-to-br from-beige-50 via-white to-earth-50/20 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+      <!-- Back Button -->
+      <div class="container-custom pt-6">
+        <button
+          @click="router.push('/pharmacies')"
+          class="inline-flex items-center gap-2 text-beige-600 dark:text-beige-400 hover:text-nature-600 dark:hover:text-nature-400 transition-colors mb-4"
+        >
+          <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+          </svg>
+          Retour aux pharmacies
+        </button>
+      </div>
+
+      <!-- Pharmacy Header Card -->
+      <section class="container-custom pb-8">
+        <div class="bg-white dark:bg-gray-800 rounded-3xl shadow-xl overflow-hidden border border-beige-200 dark:border-gray-700">
+          <div class="relative h-48 md:h-64 bg-gradient-to-br from-nature-600 via-earth-500 to-beige-600 overflow-hidden">
+            <!-- Decorative Pattern -->
+            <div class="absolute inset-0 opacity-10">
+              <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,%3Csvg width=&quot;60&quot; height=&quot;60&quot; viewBox=&quot;0 0 60 60&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;%3E%3Cg fill=&quot;none&quot; fill-rule=&quot;evenodd&quot;%3E%3Cg fill=&quot;%23ffffff&quot; fill-opacity=&quot;0.4&quot;%3E%3Cpath d=&quot;M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z&quot;/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+            </div>
+          </div>
+
+          <div class="p-6 md:p-8 -mt-20 relative z-10">
+            <div class="flex flex-col md:flex-row gap-6">
+              <!-- Pharmacy Image -->
+              <div class="flex-shrink-0">
+                <div class="w-32 h-32 md:w-40 md:h-40 rounded-2xl overflow-hidden shadow-2xl border-4 border-white dark:border-gray-800 bg-white dark:bg-gray-700">
+                  <img
+                    v-if="pharmacy.image"
+                    :src="pharmacy.image"
+                    :alt="pharmacy.name"
+                    class="w-full h-full object-cover"
+                  />
+                  <div v-else class="w-full h-full flex items-center justify-center">
+                    <svg class="w-16 h-16 text-beige-300 dark:text-beige-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                    </svg>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <!-- Pharmacy Info -->
-            <div class="md:col-span-2">
-              <div class="flex items-start justify-between mb-4">
-                <div>
-                  <h1 class="text-4xl md:text-5xl font-bold text-white mb-2">{{ pharmacy.name }}</h1>
-                  <div class="flex items-center gap-2 mb-3">
-                    <span
-                      :class="[
-                        'px-4 py-1.5 rounded-full text-sm font-bold',
-                        pharmacy.isOpen
-                          ? 'bg-green-500 text-white'
-                          : 'bg-red-500 text-white'
-                      ]"
-                    >
-                      {{ pharmacy.isOpen ? 'Ouverte' : 'Fermée' }}
-                    </span>
-                    <div class="flex items-center gap-1">
-                      <svg class="h-5 w-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-                      </svg>
-                      <span class="text-white font-bold">{{ pharmacy.rating }}</span>
-                      <span class="text-white/80 text-sm">({{ pharmacy.reviewCount }} avis)</span>
+              <!-- Pharmacy Info -->
+              <div class="flex-1 min-w-0">
+                <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-4">
+                  <div class="flex-1 min-w-0">
+                    <h1 class="text-3xl md:text-4xl font-bold text-beige-900 dark:text-white mb-3">{{ pharmacy.name }}</h1>
+                    <div class="flex flex-wrap items-center gap-3">
+                      <span
+                        :class="[
+                          'px-4 py-1.5 rounded-full text-sm font-bold shadow-md',
+                          pharmacy.isOpen
+                            ? 'bg-green-500 text-white'
+                            : 'bg-red-500 text-white'
+                        ]"
+                      >
+                        {{ pharmacy.isOpen ? 'Ouverte' : 'Fermée' }}
+                      </span>
+                      <div class="flex items-center gap-1">
+                        <svg class="h-5 w-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                        </svg>
+                        <span class="text-beige-900 dark:text-white font-bold">{{ pharmacy.rating }}</span>
+                        <span class="text-beige-600 dark:text-beige-400 text-sm">({{ pharmacy.reviewCount }} avis)</span>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              <div class="space-y-3 text-white/90">
-                <div class="flex items-start gap-3">
-                  <svg class="h-6 w-6 text-beige-200 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                  </svg>
-                  <div>
-                    <p class="font-medium">{{ pharmacy.address }}</p>
-                    <p class="text-white/70">{{ pharmacy.city }}</p>
+                <!-- Contact Info -->
+                <div class="grid sm:grid-cols-2 gap-4 mb-6">
+                  <div class="flex items-start gap-3 p-4 rounded-xl bg-beige-50 dark:bg-gray-700/50">
+                    <svg class="h-5 w-5 text-nature-600 dark:text-nature-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    </svg>
+                    <div class="flex-1 min-w-0">
+                      <p class="text-xs text-beige-600 dark:text-beige-400 mb-1">Adresse</p>
+                      <p class="text-sm font-medium text-beige-900 dark:text-white">{{ pharmacy.address }}</p>
+                      <p class="text-sm text-beige-600 dark:text-beige-400">{{ pharmacy.city }}</p>
+                    </div>
+                  </div>
+
+                  <div class="flex items-start gap-3 p-4 rounded-xl bg-beige-50 dark:bg-gray-700/50">
+                    <svg class="h-5 w-5 text-nature-600 dark:text-nature-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                    </svg>
+                    <div class="flex-1 min-w-0">
+                      <p class="text-xs text-beige-600 dark:text-beige-400 mb-1">Téléphone</p>
+                      <a :href="`tel:${pharmacy.phone}`" class="text-sm font-medium text-nature-600 dark:text-nature-400 hover:underline">{{ pharmacy.phone }}</a>
+                    </div>
+                  </div>
+
+                  <div v-if="pharmacy.distance" class="flex items-start gap-3 p-4 rounded-xl bg-beige-50 dark:bg-gray-700/50">
+                    <svg class="h-5 w-5 text-nature-600 dark:text-nature-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                    </svg>
+                    <div class="flex-1 min-w-0">
+                      <p class="text-xs text-beige-600 dark:text-beige-400 mb-1">Distance</p>
+                      <p class="text-sm font-medium text-beige-900 dark:text-white">{{ pharmacy.distance }} km de vous</p>
+                    </div>
                   </div>
                 </div>
 
-                <div class="flex items-center gap-3">
-                  <svg class="h-6 w-6 text-beige-200 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
-                  </svg>
-                  <a :href="`tel:${pharmacy.phone}`" class="font-medium hover:text-white transition-colors">{{ pharmacy.phone }}</a>
+                <!-- Action Buttons -->
+                <div class="flex flex-wrap gap-3">
+                  <a
+                    :href="`tel:${pharmacy.phone}`"
+                    class="inline-flex items-center gap-2 px-6 py-3 bg-nature-600 text-white rounded-xl font-semibold hover:bg-nature-700 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
+                  >
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                    </svg>
+                    Appeler
+                  </a>
+                  <button
+                    @click="getDirections"
+                    class="inline-flex items-center gap-2 px-6 py-3 bg-earth-600 text-white rounded-xl font-semibold hover:bg-earth-700 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
+                  >
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path>
+                    </svg>
+                    Itinéraire
+                  </button>
                 </div>
-
-                <div v-if="pharmacy.distance" class="flex items-center gap-3">
-                  <svg class="h-6 w-6 text-beige-200 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
-                  </svg>
-                  <p class="font-medium">{{ pharmacy.distance }} km de vous</p>
-                </div>
-              </div>
-
-              <!-- Action Buttons -->
-              <div class="flex flex-wrap gap-3 mt-6">
-                <a
-                  :href="`tel:${pharmacy.phone}`"
-                  class="inline-flex items-center gap-2 px-6 py-3 bg-white text-nature-600 rounded-xl font-semibold hover:bg-beige-50 transition-all duration-300 shadow-lg"
-                >
-                  <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
-                  </svg>
-                  Appeler
-                </a>
-                <button
-                  @click="getDirections"
-                  class="inline-flex items-center gap-2 px-6 py-3 bg-earth-500 text-white rounded-xl font-semibold hover:bg-earth-600 transition-all duration-300 shadow-lg"
-                >
-                  <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path>
-                  </svg>
-                  Itinéraire
-                </button>
               </div>
             </div>
           </div>
