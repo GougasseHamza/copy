@@ -11,7 +11,7 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
-    "@googlemaps/js-api-loader": "^1.16.8",
+    "@googlemaps/js-api-loader": "^1.16.10",
     "@nuxtjs/tailwindcss": "^6.13.0",
     "@pinia/nuxt": "^0.5.1",
     "@splinetool/runtime": "^1.11.8",
