@@ -80,6 +80,7 @@ module.exports = {
           700: 'hsl(var(--beige-700))',
           800: 'hsl(var(--beige-800))',
           900: 'hsl(var(--beige-900))',
+          950: 'hsl(var(--beige-950))',
         }
       },
       borderRadius: {
