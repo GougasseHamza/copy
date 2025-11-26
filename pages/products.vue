@@ -38,7 +38,7 @@
 
             <!-- Search hint -->
             <p class="mt-4 text-sm text-beige-500 dark:text-beige-500">
-              💡 Essayez: "Paracétamol", "Ibuprofène", "Atorva", "Doliprane"
+              Essayez: "Paracétamol", "Ibuprofène", "Atorva", "Doliprane"
             </p>
           </div>
         </div>
@@ -267,7 +267,7 @@
                 <!-- Disclaimer -->
                 <div v-if="selectedProduct.disclaimer" class="bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-500 p-4 rounded">
                   <p class="text-yellow-800 dark:text-yellow-300 text-sm">
-                    ⚠️ {{ selectedProduct.disclaimer }}
+                    {{ selectedProduct.disclaimer }}
                   </p>
                 </div>
 

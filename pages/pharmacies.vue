@@ -213,7 +213,7 @@
                           : 'bg-red-500/90 text-white ring-2 ring-red-400'
                       ]"
                     >
-                      {{ pharmacy.isOpen ? '🟢 Ouverte' : '🔴 Fermée' }}
+                      {{ pharmacy.isOpen ? 'Ouverte' : 'Fermée' }}
                     </div>
                   </div>
 
@@ -255,7 +255,7 @@
                         @click.stop="navigateTo(`/pharmacy/${pharmacy.id}`)"
                         class="flex-1 px-5 py-3 bg-gradient-to-r from-nature-600 to-nature-700 text-white rounded-xl font-semibold hover:from-nature-700 hover:to-nature-800 hover:shadow-lg hover:shadow-nature-600/30 transform hover:scale-105 transition-all duration-300"
                       >
-                        💊 Voir les produits
+                        Voir les produits
                       </button>
                       <button
                         @click.stop="window.open(`tel:${pharmacy.phone}`)"
@@ -342,7 +342,6 @@
                     : 'bg-red-500 text-white'
                 ]"
               >
-                <span>{{ selectedPharmacy.isOpen ? '🟢' : '🔴' }}</span>
                 {{ selectedPharmacy.isOpen ? 'Ouverte' : 'Fermée' }}
               </div>
             </div>
@@ -366,7 +365,7 @@
               :to="`/pharmacy/${selectedPharmacy.id}`"
               class="block w-full text-center px-6 py-4 bg-gradient-to-r from-nature-600 to-nature-700 text-white rounded-xl font-bold hover:from-nature-700 hover:to-nature-800 hover:shadow-lg hover:shadow-nature-600/30 transform hover:scale-105 transition-all duration-300"
             >
-              💊 Voir les détails
+              Voir les détails
             </NuxtLink>
           </div>
         </div>
