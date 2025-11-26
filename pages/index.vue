@@ -267,43 +267,6 @@
         </div>
       </section>
 
-      <!-- CTA Section with Nature Theme -->
-      <section id="contact" class="py-32 relative overflow-hidden">
-        <!-- Gradient Background -->
-        <div class="absolute inset-0 bg-gradient-to-br from-nature-600 via-earth-500 to-beige-600"></div>
-
-        <!-- Overlay Pattern -->
-        <div class="absolute inset-0 opacity-10">
-          <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,%3Csvg width=&quot;60&quot; height=&quot;60&quot; viewBox=&quot;0 0 60 60&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;%3E%3Cg fill=&quot;none&quot; fill-rule=&quot;evenodd&quot;%3E%3Cg fill=&quot;%23ffffff&quot; fill-opacity=&quot;0.4&quot;%3E%3Cpath d=&quot;M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z&quot;/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
-        </div>
-
-        <div class="container-custom relative z-10">
-          <div ref="ctaSection" class="text-center max-w-4xl mx-auto opacity-0">
-            <div class="mb-6 inline-block">
-              <span class="text-white/90 text-lg font-medium">Simplifiez votre accès aux médicaments</span>
-            </div>
-            <h2 class="text-5xl md:text-6xl font-bold mb-8 text-white">
-              Trouvez Votre Pharmacie<br />
-              <span class="text-earth-100">En Un Clic</span>
-            </h2>
-            <p class="text-xl mb-12 text-white/90 leading-relaxed max-w-2xl mx-auto">
-              Rejoignez des milliers d'utilisateurs qui facilitent leur accès aux médicaments avec PharmFinder.
-            </p>
-            <div class="flex flex-col sm:flex-row gap-6 justify-center">
-              <NuxtLink to="/pharmacies" class="group inline-flex items-center justify-center rounded-2xl bg-gradient-to-r from-nature-500 to-nature-600 text-white px-10 py-5 text-base font-semibold shadow-2xl shadow-nature-500/40 hover:shadow-nature-500/60 hover:scale-105 transition-all duration-300">
-                Trouver une Pharmacie
-                <svg class="ml-3 h-5 w-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
-                </svg>
-              </NuxtLink>
-              <NuxtLink to="/auth/signup" class="inline-flex items-center justify-center rounded-2xl border-2 border-white text-white px-10 py-5 text-base font-semibold hover:bg-white/10 backdrop-blur-sm transition-all duration-300">
-                Créer un Compte
-              </NuxtLink>
-            </div>
-          </div>
-        </div>
-
-      </section>
     </div>
   </NuxtLayout>
 </template>
@@ -327,7 +290,6 @@ const heroButtons = ref<HTMLElement | null>(null)
 const heroStats = ref<HTMLElement | null>(null)
 const globeSection = ref<HTMLElement | null>(null)
 const testimonialsSection = ref<HTMLElement | null>(null)
-const ctaSection = ref<HTMLElement | null>(null)
 
 // Globe configuration with nature colors
 const globeConfig = {
@@ -436,18 +398,6 @@ onMounted(() => {
     scrollTrigger: {
       trigger: testimonialsSection.value,
       start: 'top 70%',
-      toggleActions: 'play none none none'
-    }
-  })
-
-  // CTA scroll animation
-  gsap.to(ctaSection.value, {
-    opacity: 1,
-    scale: 1,
-    duration: 0.8,
-    scrollTrigger: {
-      trigger: ctaSection.value,
-      start: 'top 80%',
       toggleActions: 'play none none none'
     }
   })
