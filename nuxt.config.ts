@@ -53,10 +53,14 @@ export default defineNuxtConfig({
 
   // Runtime config for environment variables
   runtimeConfig: {
+    // Private keys (server-side only, NOT exposed to client)
+    n8nWebhookUrl: process.env.N8N_WEBHOOK_URL || '',
+
+    // Public keys (exposed to client - use with caution!)
     public: {
       apiBase: process.env.API_BASE_URL || 'http://localhost:8080/api',
-      googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY || '',
-      n8nWebhookUrl: process.env.N8N_WEBHOOK_URL || ''
+      // Google Maps key is OK to expose IF you have domain restrictions in GCP Console
+      googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY || ''
     }
   }
 })
