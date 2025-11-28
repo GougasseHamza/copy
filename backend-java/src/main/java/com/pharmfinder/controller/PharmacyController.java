@@ -1,12 +1,17 @@
 package com.pharmfinder.controller;
 
 import com.pharmfinder.dto.response.ApiResponse;
+import com.pharmfinder.model.Inventory;
 import com.pharmfinder.model.Pharmacy;
+import com.pharmfinder.model.Product;
+import com.pharmfinder.repository.InventoryRepository;
 import com.pharmfinder.service.PharmacyService;
+import com.pharmfinder.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -15,6 +20,8 @@ import java.util.List;
 public class PharmacyController {
 
     private final PharmacyService pharmacyService;
+    private final InventoryRepository inventoryRepository;
+    private final ProductService productService;
 
     @GetMapping
     public ResponseEntity<ApiResponse<List<Pharmacy>>> getAllPharmacies(
@@ -75,5 +82,36 @@ public class PharmacyController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(new ApiResponse<>(true, "Pharmacy updated successfully", updated));
+    }
+
+    @GetMapping("/{id}/inventory")
+    public ResponseEntity<ApiResponse<List<Product>>> getPharmacyInventory(@PathVariable String id) {
+        try {
+            // Get the pharmacy by ID
+            Pharmacy pharmacy = pharmacyService.getPharmacyById(id);
+            if (pharmacy == null) {
+                return ResponseEntity.notFound().build();
+            }
+
+            // Get inventory entries for this pharmacy (by name)
+            List<Inventory> inventoryEntries = inventoryRepository.findByPharmacy(pharmacy.getName());
+
+            // Fetch full product details for available items
+            List<Product> products = new ArrayList<>();
+            for (Inventory entry : inventoryEntries) {
+                if (entry.isAvailable()) {  // Only include available products
+                    Product product = productService.getProductById(entry.getProductId());
+                    if (product != null) {
+                        products.add(product);
+                    }
+                }
+            }
+
+            return ResponseEntity.ok(new ApiResponse<>(true, "Pharmacy inventory retrieved successfully", products));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(
+                    new ApiResponse<>(false, "Failed to retrieve inventory: " + e.getMessage(), null)
+            );
+        }
     }
 }
